@@ -11,6 +11,7 @@ import project.persistence.entities.Survey;
 import project.persistence.entities.Question;
 import project.service.SurveyService;
 import project.service.QuestionService;
+import project.service.OptionService;
 
 @Controller
 public class SurveyController {
@@ -18,12 +19,14 @@ public class SurveyController {
     // Instance Variables
     SurveyService surveyService;
     QuestionService questionService;
+    OptionService optionService;
 
     // Dependency Injection
     @Autowired
-    public SurveyController(SurveyService surveyService, QuestionService questionService) {
+    public SurveyController(SurveyService surveyService, QuestionService questionService, OptionService optionService) {
         this.surveyService = surveyService;
         this.questionService = questionService;
+        this.optionService = optionService;
     }
 
     // Method that returns the correct view for the URL /postit
@@ -135,8 +138,16 @@ public class SurveyController {
         questionService.delete(questionToDelete);
         model.addAttribute("questions", questionService.findByContainingSurvey(containingSurvey));
         model.addAttribute("question", new Question());
+        model.addAttribute("options", optionService.findByContainingSurvey(containingSurvey));
         model.addAttribute("survey", surveyService.findByName(containingSurvey));
 
         return "surveys/SurveyEditor";
+    }
+
+    @RequestMapping(value = "/survey/surveyedit/{containingSurvey}/{id}")
+    public String SurveyEditorViewQuestion(@PathVariable String containingSurvey, @PathVariable Long id,
+                                           Model model) {
+        model.addAttribute("question", questionService.findByContainingSurveyAndId(containingSurvey, id));
+        return "surveys/QuestionEditor";
     }
 }

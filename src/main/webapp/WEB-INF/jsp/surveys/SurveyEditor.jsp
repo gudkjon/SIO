@@ -59,7 +59,7 @@
                         <%--it in the singular item var, and then just a dot followed by the attribute name--%>
 
                         <%--Create a link based on the name attribute value--%>
-                    <td><p>${question2.questionText}</p></td>
+                    <td><a href="/survey/surveyedit/${question2.containingSurvey}/${question2.id}">${question2.questionText}</a></td>
                     <td>${question2.type}</td>
                     <td><a href = "/survey/surveyedit/delete/${question2.containingSurvey}/${question2.id}">Delete</a></td>
                 </tr>
