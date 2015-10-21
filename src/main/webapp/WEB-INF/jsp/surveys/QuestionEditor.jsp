@@ -15,7 +15,7 @@
 
 
 <h1>${question.get(0).questionText}</h1>
-<p>by ${question.get(0).type}</p>
+<p>type: ${question.get(0).type}</p>
 
 </body>
 </html>
