@@ -1,0 +1,24 @@
+
+table.notes {
+    border: 1px black solid;
+}
+
+.notes td {
+    padding: 15px;
+    text-align: left;
+}
+
+table.notes tr:nth-child(even) {
+    background-color: antiquewhite;
+}
+
+table.notes tr:nth-child(odd) {
+    background-color: azure;
+}
+
+body {
+    background-image: url("../images/background-blue.jpg");
+    background-size: cover;
+    margin: auto;
+    width: 60%;
+}
