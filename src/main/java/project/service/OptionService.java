@@ -49,4 +49,6 @@ public interface OptionService {
 
     List<Option> findByContainingSurveyAndId(String containingSurvey, Long id);
 
+    List<Option> findByContainingSurveyAndQuestionId(String containingSurvey, Long questionId);
+
 }

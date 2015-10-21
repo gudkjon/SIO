@@ -40,4 +40,6 @@ public interface OptionRepository extends JpaRepository<Option, Long> {
     List<Option> findByContainingSurveyAndContainingQuestion(String containingSurvey, String containingQuestion);
 
     List<Option> findByContainingSurveyAndId(String containingSurvey, Long id);
+
+    List<Option> findByContainingSurveyAndQuestionId(String containingSurvey, Long questionId);
 }

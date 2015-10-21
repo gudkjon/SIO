@@ -66,4 +66,9 @@ public class OptionServiceImplementation implements OptionService {
     public List<Option> findByContainingSurveyAndId(String containingSurvey, Long id) {
         return repository.findByContainingSurveyAndId(containingSurvey,id);
     }
+
+    @Override
+    public List<Option> findByContainingSurveyAndQuestionId(String containingSurvey, Long questionId) {
+        return repository.findByContainingSurveyAndQuestionId(containingSurvey, questionId);
+    }
 }

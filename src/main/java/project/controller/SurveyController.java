@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.Survey;
 import project.persistence.entities.Question;
+import project.persistence.entities.Option;
 import project.service.SurveyService;
 import project.service.QuestionService;
 import project.service.OptionService;
@@ -144,10 +145,24 @@ public class SurveyController {
         return "surveys/SurveyEditor";
     }
 
-    @RequestMapping(value = "/survey/surveyedit/{containingSurvey}/{id}")
-    public String SurveyEditorViewQuestion(@PathVariable String containingSurvey, @PathVariable Long id,
+    @RequestMapping(value = "/survey/surveyedit/{containingSurvey}/{questionId}", method = RequestMethod.GET)
+    public String SurveyEditorViewQuestion(@PathVariable String containingSurvey, @PathVariable Long questionId,
                                            Model model) {
-        model.addAttribute("question", questionService.findByContainingSurveyAndId(containingSurvey, id));
+        model.addAttribute("question", questionService.findByContainingSurveyAndId(containingSurvey, questionId));
+        model.addAttribute("option", new Option());
+        model.addAttribute("options", optionService.findByContainingSurveyAndQuestionId(containingSurvey, questionId));
+        return "surveys/QuestionEditor";
+    }
+
+    @RequestMapping(value = "/survey/surveyedit/{containingSurvey}/{questionId}", method = RequestMethod.POST)
+    public String SurveyEditorViewQuestion(@PathVariable String containingSurvey, @PathVariable Long questionId,
+                                           @ModelAttribute("option") Option option, Model model) {
+        option.setContainingSurvey(containingSurvey);
+        option.setQuestionId(questionId);
+        optionService.save(option);
+        model.addAttribute("question", questionService.findByContainingSurveyAndId(containingSurvey, questionId));
+        model.addAttribute("option", new Option());
+        model.addAttribute("options", optionService.findByContainingSurveyAndQuestionId(containingSurvey, questionId));
         return "surveys/QuestionEditor";
     }
 }

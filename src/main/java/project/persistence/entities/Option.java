@@ -19,6 +19,7 @@ public class Option {
     private String containingSurvey;
     private String containingQuestion;
     private String optionText;
+    private Long questionId;
     //private String[] options;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
@@ -52,6 +53,11 @@ public class Option {
         this.optionText = optionText;
     }
 
+    public Long getQuestionId() { return questionId; }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
 
     // This is for easier debug.
     @Override
