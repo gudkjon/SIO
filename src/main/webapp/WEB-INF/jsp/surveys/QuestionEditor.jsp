@@ -40,11 +40,17 @@
                 <%--generate a row in the table--%>
                 <%--Here we set `postit` as a singular item out of the list `surveys`--%>
             <c:forEach var="option2" items="${options}">
-                <tr>
+                    <td>
                         <%--We can reference attributes of the Entity by just entering the name we gave--%>
                         <%--it in the singular item var, and then just a dot followed by the attribute name--%>
                         <%--Create a link based on the name attribute value--%>
                         <p>${option2.optionText}</p>
+                    </td>
+                    <td>
+                        <form method = "post" action = "/survey/surveyedit/delete/${option2.containingSurvey}/${option2.questionId}/${option2.id}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -55,7 +61,6 @@
         <h3>No options!</h3>
     </c:otherwise>
 </c:choose>
-
 
 </body>
 </html>

@@ -61,7 +61,11 @@
                         <%--Create a link based on the name attribute value--%>
                     <td><a href="/survey/surveyedit/${question2.containingSurvey}/${question2.id}">${question2.questionText}</a></td>
                     <td>${question2.type}</td>
-                    <td><a href = "/survey/surveyedit/delete/${question2.containingSurvey}/${question2.id}">Delete</a></td>
+                    <td>
+                        <form method = post action = "/survey/surveyedit/delete/${question2.containingSurvey}/${question2.id}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
