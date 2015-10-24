@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import project.persistence.entities.Survey;
 import project.persistence.entities.Question;
 import project.persistence.entities.Option;
+import project.service.StringManipulationService;
 import project.service.SurveyService;
 import project.service.QuestionService;
 import project.service.OptionService;
@@ -26,6 +27,7 @@ public class SurveyController {
     SurveyService surveyService;
     QuestionService questionService;
     OptionService optionService;
+    StringManipulationService stringManipulationService = new StringManipulationService();
 
     // Dependency Injection
     @Autowired
@@ -64,6 +66,7 @@ public class SurveyController {
                                      Model model){
 
         // Save the Postit Note that we received from the form
+        //survey.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(survey.getName()));
         surveyService.save(survey);
 
         // Here we get all the Postit Notes (in a reverse order) and add them to the model
@@ -130,6 +133,7 @@ public class SurveyController {
     public String SurveyEditorPostQuestion(@PathVariable String name, @ModelAttribute("question")
                                            Question question, Model model) {
         question.setContainingSurvey(name);
+        //question.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(question.getQuestionText()));
         questionService.save(question);
         model.addAttribute("questions", questionService.findByContainingSurvey(name));
         model.addAttribute("question", new Question());
@@ -169,6 +173,7 @@ public class SurveyController {
                                            @ModelAttribute("option") Option option, Model model) {
         option.setContainingSurvey(containingSurvey);
         option.setQuestionId(questionId);
+        //option.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(option.getOptionText()));
         optionService.save(option);
         model.addAttribute("question", questionService.findByContainingSurveyAndId(containingSurvey, questionId));
         model.addAttribute("option", new Option());

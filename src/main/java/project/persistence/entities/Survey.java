@@ -18,6 +18,7 @@ public class Survey {
 
     private String name;
     private String author;
+    //private String linkText;
     //private Question[] questions;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
@@ -53,6 +54,10 @@ public class Survey {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    //public String getLinkText() { return linkText; }
+
+    //public void setLinkText(String linkText) { this.linkText = linkText; }
 
 
     // This is for easier debug.

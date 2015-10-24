@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StringManipulationService {
 
+    private String specialCharacters = "?";
     /**
      * Returns the string that is passed to the method in Upper Case
      * @param string String to convert to Upper Case
@@ -36,5 +37,17 @@ public class StringManipulationService {
      */
     public String convertsFirstCharInStringToUpperCase(String string){
         return string.substring(0,1).toUpperCase() + string.substring(1);
+    }
+
+    public String convertsSpecialCharactersToEncoding(String string) {
+        String questionMark = "%3F";
+        for(int i = 0; i < string.length(); i++) {
+            for(int j = 0; j < specialCharacters.length(); j++) {
+                if (string.substring(i, i + 1).equals(specialCharacters.substring(j,j+1))) {
+                    string = string.substring(0,i)+questionMark+string.substring(i);
+                }
+            }
+        }
+        return string;
     }
 }

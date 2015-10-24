@@ -19,6 +19,7 @@ public class Option {
     private String containingSurvey;
     private String containingQuestion;
     private String optionText;
+    //private String linkText;
     private Long questionId;
     //private String[] options;
 
@@ -58,6 +59,10 @@ public class Option {
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
+
+    //public String getLinkText() { return linkText; }
+
+    //public void setLinkText(String linkText) { this.linkText = linkText; }
 
     // This is for easier debug.
     @Override

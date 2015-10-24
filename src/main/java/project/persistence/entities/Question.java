@@ -19,8 +19,7 @@ public class Question {
     private String containingSurvey;
     private String questionText;
     private String type;
-    //private String[] options;
-
+    //private String linkText;
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Question() {
@@ -30,10 +29,10 @@ public class Question {
         this.questionText = questionText;
         this.type = type;
     }
+
     public Question(String containingSurvey) {
         this.containingSurvey = containingSurvey;
     }
-
     public Long getId() {
         return id;
     }
@@ -60,13 +59,13 @@ public class Question {
 
     public String getType() { return type; }
 
+    //public String getLinkText() { return linkText; }
+
+    //public void setLinkText(String linkText) { this.linkText = linkText; }
+
     //public String[] getOptions() {
-       // return options;
-    //}
 
     //public void setOptions(String[] options) {
-       // this.options = options;
-    //}
 
     // This is for easier debug.
     @Override
