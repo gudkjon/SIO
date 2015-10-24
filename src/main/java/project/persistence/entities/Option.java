@@ -16,7 +16,7 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String containingSurvey;
+    private Long surveyId;
     private String containingQuestion;
     private String optionText;
     //private String linkText;
@@ -36,9 +36,9 @@ public class Option {
         this.id = id;
     }
 
-    public String getContainingSurvey() { return containingSurvey; }
+    public Long getSurveyId() { return surveyId; }
 
-    public void setContainingSurvey(String containingSurvey) { this.containingSurvey = containingSurvey; }
+    public void setSurveyId(Long surveyId) { this.surveyId = surveyId; }
 
     public String getContainingQuestion() { return containingQuestion; }
 

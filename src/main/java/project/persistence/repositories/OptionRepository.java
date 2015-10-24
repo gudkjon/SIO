@@ -35,11 +35,11 @@ public interface OptionRepository extends JpaRepository<Option, Long> {
 
     Option findOne(Long id);
 
-    List<Option> findByContainingSurvey(String containingSurvey);
+    List<Option> findBySurveyId(Long surveyId);
 
-    List<Option> findByContainingSurveyAndContainingQuestion(String containingSurvey, String containingQuestion);
+    List<Option> findBySurveyIdAndContainingQuestion(Long surveyId, String containingQuestion);
 
-    List<Option> findByContainingSurveyAndId(String containingSurvey, Long id);
+    List<Option> findBySurveyIdAndId(Long surveyId, Long id);
 
-    List<Option> findByContainingSurveyAndQuestionId(String containingSurvey, Long questionId);
+    List<Option> findBySurveyIdAndQuestionId(Long surveyId, Long questionId);
 }

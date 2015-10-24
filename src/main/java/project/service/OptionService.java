@@ -40,15 +40,15 @@ public interface OptionService {
 
     /**
      * Find all {@link Option}s with {@link String name}
-     * @param containingSurvey {@link String}
-     * @return All {@link Option}s with the {@link String containingSurvey} passed
+     * @param surveyId {@link String}
+     * @return All {@link Option}s with the {@link Long surveyId} passed
      */
-    List<Option> findByContainingSurvey(String containingSurvey);
+    List<Option> findBySurveyId(Long surveyId);
 
-    List<Option> findByContainingSurveyAndContainingQuestion(String containingSurvey, String containingQuestion);
+    List<Option> findBySurveyIdAndContainingQuestion(Long surveyId, String containingQuestion);
 
-    List<Option> findByContainingSurveyAndId(String containingSurvey, Long id);
+    List<Option> findBySurveyIdAndId(Long surveyId, Long id);
 
-    List<Option> findByContainingSurveyAndQuestionId(String containingSurvey, Long questionId);
+    List<Option> findBySurveyIdAndQuestionId(Long surveyId, Long questionId);
 
 }

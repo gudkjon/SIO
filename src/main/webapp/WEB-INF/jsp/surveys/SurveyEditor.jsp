@@ -14,10 +14,10 @@
 <body>
 
 
-<h1>${survey.get(0).name}</h1>
-<p>by ${survey.get(0).author}</p>
+<h1>${survey.name}</h1>
+<p>by ${survey.author}</p>
 
-<sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.get(0).name}">
+<sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.id}">
 
     <table>
         <tr>
@@ -59,10 +59,10 @@
                         <%--it in the singular item var, and then just a dot followed by the attribute name--%>
 
                         <%--Create a link based on the name attribute value--%>
-                    <td><a href="/survey/surveyedit/${question2.containingSurvey}/${question2.id}">${question2.questionText}</a></td>
+                    <td><a href="/survey/surveyedit/${question2.surveyId}/${question2.id}">${question2.questionText}</a></td>
                     <td>${question2.type}</td>
                     <td>
-                        <form method = post action = "/survey/surveyedit/delete/${question2.containingSurvey}/${question2.id}">
+                        <form method = post action = "/survey/surveyedit/delete/${question2.surveyId}/${question2.id}">
                             <input type="submit" value="Delete">
                         </form>
                     </td>

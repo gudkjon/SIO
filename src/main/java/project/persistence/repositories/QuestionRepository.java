@@ -35,7 +35,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Question findOne(Long id);
 
-    List<Question> findByContainingSurvey(String containingSurvey);
+    List<Question> findBySurveyId(Long surveyId);
 
-    List<Question> findByContainingSurveyAndId(String containingSurvey, Long id);
+    List<Question> findBySurveyIdAndId(Long surveyId, Long id);
 }

@@ -40,11 +40,11 @@ public interface QuestionService {
 
     /**
      * Find all {@link Question}s with {@link String name}
-     * @param containingSurvey {@link String}
-     * @return All {@link Question}s with the {@link String containingSurvey} passed
+     * @param surveyId {@link Long}
+     * @return All {@link Question}s with the {@link Long surveyId} passed
      */
-    List<Question> findByContainingSurvey(String containingSurvey);
+    List<Question> findBySurveyId(Long surveyId);
 
-    List<Question> findByContainingSurveyAndId(String containingSurvey, Long id);
+    List<Question> findBySurveyIdAndId(Long surveyId, Long id);
 
 }

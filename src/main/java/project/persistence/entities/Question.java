@@ -16,7 +16,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String containingSurvey;
+    private Long surveyId;
     private String questionText;
     private String type;
     //private String linkText;
@@ -30,8 +30,8 @@ public class Question {
         this.type = type;
     }
 
-    public Question(String containingSurvey) {
-        this.containingSurvey = containingSurvey;
+    public Question(Long surveyId) {
+        this.surveyId = surveyId;
     }
     public Long getId() {
         return id;
@@ -41,9 +41,9 @@ public class Question {
         this.id = id;
     }
 
-    public String getContainingSurvey() { return containingSurvey; }
+    public Long getSurveyId() { return surveyId; }
 
-    public void setContainingSurvey(String containingSurvey) { this.containingSurvey = containingSurvey; }
+    public void setSurveyId(Long surveyId) { this.surveyId = surveyId; }
 
     public String getQuestionText() {
         return questionText;

@@ -53,12 +53,12 @@ public class QuestionServiceImplementation implements QuestionService {
     }
 
     @Override
-    public List<Question> findByContainingSurvey(String containingSurvey) {
-        return repository.findByContainingSurvey(containingSurvey);
+    public List<Question> findBySurveyId(Long surveyId) {
+        return repository.findBySurveyId(surveyId);
     }
 
     @Override
-    public List<Question> findByContainingSurveyAndId(String containingSurvey, Long id) {
-        return repository.findByContainingSurveyAndId(containingSurvey,id);
+    public List<Question> findBySurveyIdAndId(Long surveyId, Long id) {
+        return repository.findBySurveyIdAndId(surveyId,id);
     }
 }

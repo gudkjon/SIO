@@ -15,7 +15,7 @@
 <h1>${question.get(0).questionText}</h1>
 <p>type: ${question.get(0).type}</p>
 
-<sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.get(0).containingSurvey}/${question.get(0).id}">
+<sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.get(0).surveyId}/${question.get(0).id}">
 
     <table>
         <tr>
@@ -47,7 +47,7 @@
                         <p>${option2.optionText}</p>
                     </td>
                     <td>
-                        <form method = "post" action = "/survey/surveyedit/delete/${option2.containingSurvey}/${option2.questionId}/${option2.id}">
+                        <form method = "post" action = "/survey/surveyedit/delete/${option2.surveyId}/${option2.questionId}/${option2.id}">
                             <input type="submit" value="Delete">
                         </form>
                     </td>
