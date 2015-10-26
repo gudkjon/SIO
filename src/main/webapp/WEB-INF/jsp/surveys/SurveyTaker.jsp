@@ -26,7 +26,7 @@
                 <%--For each postit note, that is in the list that was passed in the model--%>
                 <%--generate a row in the table--%>
                 <%--Here we set `postit` as a singular item out of the list `surveys`--%>
-            <c:forEach var="question2" items="${questions}">
+            <c:forEach var="question2" items="${questions}" varStatus="status">
                 <tr>
                         <%--We can reference attributes of the Entity by just entering the name we gave--%>
                         <%--it in the singular item var, and then just a dot followed by the attribute name--%>
@@ -39,6 +39,19 @@
                             <input type="submit" value="Delete">
                         </form>
                     </td>
+                    <c:choose>
+                        <c:when test="${not empty options.get(status.index)}">
+                    <c:forEach var="option" items="${options.get(status.index)}">
+                        <td>
+                            <p>${option.optionText}</p>
+                        </td>
+
+                    </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <td>No options</td>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
             </c:forEach>
         </table>

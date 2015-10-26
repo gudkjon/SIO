@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-/*
+
     private String firstName;
     private String lastName;
     private String email;
@@ -27,7 +27,7 @@ public class User {
     private String age;
     private String gender;
     private String language;
-*/
+
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public User() {
@@ -41,7 +41,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-    /*
+
     public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) { this.firstName = firstName; }
@@ -92,5 +92,5 @@ public class User {
         return String.format(
                 "User [firstName=%s, lastName=%s, countryRaisedIn=%s]",
                 firstName, lastName, countryRaisedIn);
-    }*/
+    }
 }
