@@ -44,15 +44,33 @@
                             </td>
                             <td>
                                 <c:choose>
+
                                     <%--Dropdown options--%>
                                     <c:when test="${question.type == 'dropDown'}">
                                         <select>
                                             <option value="Select answer">${"Select answer"}</option>
                                             <c:forEach var="option" items="${options.get(status.index)}">
-                                                <option value="${option.optionText}">${option.optionText}</option>
+                                                <p>${option.id}</p>
+                                                <option value="${option.id}">${option.optionText}</option>
                                             </c:forEach>
                                         </select>
                                     </c:when>
+
+                                    <%--radio button options--%>
+                                    <c:when test="${question.type == 'radioButton'}">
+                                        <c:forEach var="option" items="${options.get(status.index)}">
+                                            <label>
+                                                <input type="radio" name="${question.id}" value="${option.id}" />${option.optionText}
+                                            </label>
+                                            <br>
+                                        </c:forEach>
+                                    </c:when>
+
+                                    <%--Input option--%>
+                                    <c:when test="${question.type == 'input'}">
+                                        <input placeholder="Enter answer" type="text" name="${option.id}" />
+                                    </c:when>
+
                                     <c:otherwise>
                                         <p> No options </p>
                                     </c:otherwise>
