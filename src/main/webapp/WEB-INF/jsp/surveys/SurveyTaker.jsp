@@ -44,7 +44,6 @@
                             </td>
                             <td>
                                 <c:choose>
-
                                     <%--Dropdown options--%>
                                     <c:when test="${question.type == 'dropDown'}">
                                         <select>
@@ -69,6 +68,16 @@
                                     <%--Input option--%>
                                     <c:when test="${question.type == 'input'}">
                                         <input placeholder="Enter answer" type="text" name="${option.id}" />
+                                    </c:when>
+
+                                    <%--Multiple question option--%>
+                                    <c:when test="${question.type == 'multiQuestion'}">
+                                        <c:forEach var="option" items="${options.get(status.index)}">
+                                            <label>
+                                                <input type="checkbox" name="${question.id}" value="${option.id}" />${option.optionText}
+                                            </label>
+                                            <br>
+                                        </c:forEach>
                                     </c:when>
 
                                     <c:otherwise>
