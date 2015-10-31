@@ -6,62 +6,68 @@
 
 <html lang="en">
 
-<head>
-    <title>Survey Editor</title>
+    <head>
+        <title>Survey Editor</title>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>"/>
-</head>
-<body>
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />
+    </head>
+    <body>
 
+        <h1>${survey.name}</h1>
+        <p>by ${survey.author}</p>
 
-<h1>${survey.name}</h1>
-<p>by ${survey.author}</p>
+        <c:choose>
+            <%--If the model has an attribute with the name `surveys`--%>
+            <c:when test="${not empty questions}">
+                <%--Create a table for the Postit Notes--%>
+                <table class="notes">
 
-<c:choose>
-    <%--If the model has an attribute with the name `surveys`--%>
-    <c:when test="${not empty questions}">
-        <%--Create a table for the Postit Notes--%>
-        <table class="notes">
+                        <%--For each postit note, that is in the list that was passed in the model--%>
+                        <%--generate a row in the table--%>
+                        <%--Here we set `postit` as a singular item out of the list `surveys`--%>
+                    <c:forEach var="question" items="${questions}" varStatus="status">
+                        <tr>
+                                <%--We can reference attributes of the Entity by just entering the name we gave--%>
+                                <%--it in the singular item var, and then just a dot followed by the attribute name--%>
 
-                <%--For each postit note, that is in the list that was passed in the model--%>
-                <%--generate a row in the table--%>
-                <%--Here we set `postit` as a singular item out of the list `surveys`--%>
-            <c:forEach var="question2" items="${questions}" varStatus="status">
-                <tr>
-                        <%--We can reference attributes of the Entity by just entering the name we gave--%>
-                        <%--it in the singular item var, and then just a dot followed by the attribute name--%>
-
-                        <%--Create a link based on the name attribute value--%>
-                    <td><a href="/survey/surveyedit/${question2.surveyId}/${question2.id}">${question2.questionText}</a></td>
-                    <td>${question2.type}</td>
-                    <td>
-                        <form method = post action = "/survey/surveyedit/delete/${question2.surveyId}/${question2.id}">
-                            <input type="submit" value="Delete">
-                        </form>
-                    </td>
-                    <c:choose>
-                        <c:when test="${not empty options.get(status.index)}">
-                    <c:forEach var="option" items="${options.get(status.index)}">
-                        <td>
-                            <p>${option.optionText}</p>
-                        </td>
-
+                                <%--Create a link based on the name attribute value--%>
+                            <td>
+                                <a href="/survey/surveyedit/${question.surveyId}/${question.id}">${question.questionText}</a>
+                            </td>
+                            <td>
+                                ${question.type}
+                            </td>
+                            <td>
+                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.id}">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <%--Dropdown options--%>
+                                    <c:when test="${question.type == 'dropDown'}">
+                                        <select>
+                                            <option value="Select answer">${"Select answer"}</option>
+                                            <c:forEach var="option" items="${options.get(status.index)}">
+                                                <option value="${option.optionText}">${option.optionText}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p> No options </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
                     </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <td>No options</td>
-                        </c:otherwise>
-                    </c:choose>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:when>
+                </table>
+            </c:when>
 
-    <%--If all tests are false, then do this--%>
-    <c:otherwise>
-        <h3>No questions!</h3>
-    </c:otherwise>
-</c:choose>
+            <%--If all tests are false, then do this--%>
+            <c:otherwise>
+                <h3>No questions!</h3>
+            </c:otherwise>
+        </c:choose>
 
-</body>
+    </body>
 </html>

@@ -9,73 +9,69 @@
 <head>
     <title>Survey Editor</title>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />
 </head>
-<body>
-
-
-<h1>${survey.name}</h1>
-<p>by ${survey.author}</p>
-
-<sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.id}">
-
-    <table>
-        <tr>
-            <td> Question:</td>
-                <%--the `path` attribute matches the `name` attribute of the Entity that was passed in the model--%>
-            <td><sf:input path="questionText" type="text" placeholder="Question"/></td>
-        </tr>
-        <tr>
-            <td>Type:</td>
-                <%--the `path` attribute matches the `note` attribute of the Entity that was passed in the model--%>
-            <td>
-                <sf:select path="type">
-                    <sf:option value="dropDown">DropDown</sf:option>
-                    <sf:option value="multiQuestion">Multiple answer</sf:option>
-                    <sf:option value="input">Input box</sf:option>
-                    <sf:option value="radioButton">Radio Button</sf:option>
-                </sf:select>
-            </td>
-        </tr>
-    </table>
-
-    <input type="submit" VALUE="Add Question!"/>
-
-</sf:form>
-
-
-<c:choose>
-    <%--If the model has an attribute with the name `surveys`--%>
-    <c:when test="${not empty questions}">
-        <%--Create a table for the Postit Notes--%>
-        <table class="notes">
-
-                <%--For each postit note, that is in the list that was passed in the model--%>
-                <%--generate a row in the table--%>
-                <%--Here we set `postit` as a singular item out of the list `surveys`--%>
-            <c:forEach var="question2" items="${questions}">
+    <body>
+        <h1>${survey.name}</h1>
+        <p>by ${survey.author}</p>
+        <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.id}">
+            <table>
                 <tr>
-                        <%--We can reference attributes of the Entity by just entering the name we gave--%>
-                        <%--it in the singular item var, and then just a dot followed by the attribute name--%>
-
-                        <%--Create a link based on the name attribute value--%>
-                    <td><a href="/survey/surveyedit/${question2.surveyId}/${question2.id}">${question2.questionText}</a></td>
-                    <td>${question2.type}</td>
+                    <td> Question:</td>
+                        <%--the `path` attribute matches the `name` attribute of the Entity that was passed in the model--%>
+                    <td><sf:input path="questionText" type="text" placeholder="Question"/></td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                        <%--the `path` attribute matches the `note` attribute of the Entity that was passed in the model--%>
                     <td>
-                        <form method = post action = "/survey/surveyedit/delete/${question2.surveyId}/${question2.id}">
-                            <input type="submit" value="Delete">
-                        </form>
+                        <sf:select path="type">
+                            <sf:option value="dropDown">DropDown</sf:option>
+                            <sf:option value="multiQuestion">Multiple answer</sf:option>
+                            <sf:option value="input">Input box</sf:option>
+                            <sf:option value="radioButton">Radio Button</sf:option>
+                        </sf:select>
                     </td>
                 </tr>
-            </c:forEach>
-        </table>
-    </c:when>
+            </table>
 
-    <%--If all tests are false, then do this--%>
-    <c:otherwise>
-        <h3>No questions!</h3>
-    </c:otherwise>
-</c:choose>
+            <input type="submit" VALUE="Add Question!"/>
 
-</body>
+        </sf:form>
+
+
+        <c:choose>
+            <%--If the model has an attribute with the name `surveys`--%>
+            <c:when test="${not empty questions}">
+                <%--Create a table for the Postit Notes--%>
+                <table class="notes">
+
+                        <%--For each postit note, that is in the list that was passed in the model--%>
+                        <%--generate a row in the table--%>
+                        <%--Here we set `postit` as a singular item out of the list `surveys`--%>
+                    <c:forEach var="question" items="${questions}">
+                        <tr>
+                                <%--We can reference attributes of the Entity by just entering the name we gave--%>
+                                <%--it in the singular item var, and then just a dot followed by the attribute name--%>
+
+                                <%--Create a link based on the name attribute value--%>
+                            <td><a href="/survey/surveyedit/${question.surveyId}/${question.id}">${question.questionText}</a></td>
+                            <td>${question.type}</td>
+                            <td>
+                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.id}">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:when>
+
+            <%--If all tests are false, then do this--%>
+            <c:otherwise>
+                <h3>No questions!</h3>
+            </c:otherwise>
+        </c:choose>
+
+    </body>
 </html>
