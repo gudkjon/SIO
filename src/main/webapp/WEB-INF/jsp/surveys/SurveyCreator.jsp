@@ -17,7 +17,6 @@
         <%--Note that the `commandName` given here HAS TO MATCH the name of the attribute--%>
         <%--that is added to the model that is passed to the view.--%>
         <%--See PostitNoteController, method postitNoteViewGet(), and find where this attribute is added to the model.--%>
-        <div >
             <sf:form method="POST"  commandName="survey" action="/survey">
             <table>
                 <tr>
@@ -63,6 +62,5 @@
                 <a href="/survey">Click here to create a survey!</a>
             </c:otherwise>
         </c:choose>
-        </div>
     </body>
 </html>
