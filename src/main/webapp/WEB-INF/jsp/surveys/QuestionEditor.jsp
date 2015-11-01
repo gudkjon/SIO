@@ -10,6 +10,7 @@
         <title>Survey Editor</title>
 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
         <h1>${question.get(0).questionText}</h1>
@@ -33,14 +34,8 @@
             <c:when test="${not empty options}">
                 <%--Create a table for the Postit Notes--%>
                 <table class="notes">
-                        <%--For each postit note, that is in the list that was passed in the model--%>
-                        <%--generate a row in the table--%>
-                        <%--Here we set `postit` as a singular item out of the list `surveys`--%>
                     <c:forEach var="option" items="${options}">
                         <td>
-                            <%--We can reference attributes of the Entity by just entering the name we gave--%>
-                            <%--it in the singular item var, and then just a dot followed by the attribute name--%>
-                            <%--Create a link based on the name attribute value--%>
                             <p>${option.optionText}</p>
                         </td>
                         <td>

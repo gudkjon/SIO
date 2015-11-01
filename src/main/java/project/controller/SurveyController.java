@@ -83,12 +83,6 @@ public class SurveyController {
         return "redirect:/survey/";
     }
 
-    // Method that returns the correct view for the URL /postit/{name}
-    // The {name} part is a Path Variable, and we can reference that in our method
-    // parameters as a @PathVariable. This enables us to create dynamic URLs that are
-    // based on the data that we have.
-    // This method finds all Postit Notes posted by someone with the requested {name}
-    // and returns a list with all those Postit Notes.
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
     public String surveyGetAuthorFromName(@PathVariable Long surveyId,
                                              Model model){
@@ -98,12 +92,6 @@ public class SurveyController {
         model.addAttribute("questions", questionService.findBySurveyId(surveyId));
         model.addAttribute("question", new Question());
 
-        // Add a new Postit Note to the model for the form
-        // If you look at the form in SurveyCreator.jsp, you can see that we
-        // reference this attribute there by the name `survey`.
-        //model.addAttribute("survey", new Survey());
-
-        // Return the view
         return "surveys/SurveyEditor";
     }
 

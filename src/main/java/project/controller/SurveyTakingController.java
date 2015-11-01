@@ -46,6 +46,15 @@ public class SurveyTakingController {
         this.resultService = resultService;
         this.userService = userService;
     }
+
+
+    @RequestMapping(value = "/survey/take", method = RequestMethod.GET)
+    public String surveyViewGet(Model model){
+        model.addAttribute("surveys", surveyService.findAllReverseOrder());
+
+        return "surveys/SurveyList";
+    }
+
     // Method that returns the correct view for the URL /postit
     // This handles the GET request for this URL
     // Notice the `method = RequestMethod.GET` part

@@ -9,15 +9,16 @@
     <head>
         <title>Survey Creator</title>
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
 
         <h1>surveys</h1>
-
         <%--Note that the `commandName` given here HAS TO MATCH the name of the attribute--%>
         <%--that is added to the model that is passed to the view.--%>
         <%--See PostitNoteController, method postitNoteViewGet(), and find where this attribute is added to the model.--%>
-        <sf:form method="POST" commandName="survey" action="/survey">
+        <div >
+            <sf:form method="POST"  commandName="survey" action="/survey">
             <table>
                 <tr>
                     <td> Name:</td>
@@ -36,21 +37,15 @@
         </sf:form>
 
         <%--Choose what code to generate based on tests that we implement--%>
+
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty surveys}">
                 <%--Create a table for the Postit Notes--%>
                 <table class="notes">
 
-                    <%--For each postit note, that is in the list that was passed in the model--%>
-                    <%--generate a row in the table--%>
-                    <%--Here we set `postit` as a singular item out of the list `surveys`--%>
                     <c:forEach var="survey" items="${surveys}">
                         <tr>
-                            <%--We can reference attributes of the Entity by just entering the name we gave--%>
-                            <%--it in the singular item var, and then just a dot followed by the attribute name--%>
-                            <%--Create a link based on the name attribute value--%>
-
                             <td>
                                 <a href="/survey/${survey.id}">${survey.name}</a>
                             </td>
@@ -65,8 +60,9 @@
             <%--If all tests are false, then do this--%>
             <c:otherwise>
                 <h3>No surveys!</h3>
+                <a href="/survey">Click here to create a survey!</a>
             </c:otherwise>
         </c:choose>
-
+        </div>
     </body>
 </html>

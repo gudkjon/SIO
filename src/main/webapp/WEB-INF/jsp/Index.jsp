@@ -6,16 +6,19 @@
 <html lang="en">
 
     <head>
-        <title>Project Title</title>
+        <title>Icelandic Online</title>
     </head>
     <body>
-
-    <h1>HBV501G Project Spring Boot Skeleton</h1>
-    <p>This skeleton of a Spring Boot Web project was made to help groups get started on their projects without to much hassle.</p>
-
-    <ul>
-        <li><a href="/survey">Click here for Persistence Layer Demo</a></li>
-    </ul>
+        <h1>Welcome!</h1>
+        <p>Do you want to create a survey or take a survey? Then you're on the right place.</p>
+        <ul>
+            <li>
+                <a href="/survey">Click here to create or edit a survey</a>
+            </li>
+            <li>
+                <a href="/survey/take">Click here to take a survey</a>
+            </li>
+        </ul>
     </body>
     <footer>Class HBV501G, University of Iceland, Fall 2015</footer>
 </html>
