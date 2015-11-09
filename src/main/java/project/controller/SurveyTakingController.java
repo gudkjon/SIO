@@ -55,15 +55,8 @@ public class SurveyTakingController {
         return "surveys/SurveyList";
     }
 
-    // Method that returns the correct view for the URL /postit
-    // This handles the GET request for this URL
-    // Notice the `method = RequestMethod.GET` part
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
     public String surveyViewGet(@PathVariable Long surveyId, Model model){
-        // Add a new Postit Note to the model for the form
-        // If you look at the form in SurveyCreator.jsp, you can see that we
-        // reference this attribute there by the name `survey`.
-        // Here we get all the Postit Notes (in a reverse order) and add them to the model
 
         model.addAttribute("survey", surveyService.findOne(surveyId));
 

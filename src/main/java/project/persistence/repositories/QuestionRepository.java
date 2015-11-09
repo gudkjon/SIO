@@ -34,8 +34,4 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByOrderByIdDesc();
 
     Question findOne(Long id);
-
-    List<Question> findBySurveyId(Long surveyId);
-
-    List<Question> findBySurveyIdAndId(Long surveyId, Long id);
 }

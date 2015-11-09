@@ -17,14 +17,10 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long surveyId;
-    private String containingQuestion;
     private String optionText;
-    //private String linkText;
-    private Long questionId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "questionId2")
+    @JoinColumn(name = "questionId")
     private Question question;
 
     //private String[] options;
@@ -42,16 +38,6 @@ public class Option {
         this.id = id;
     }
 
-    public Long getSurveyId() { return surveyId; }
-
-    public void setSurveyId(Long surveyId) { this.surveyId = surveyId; }
-
-    public String getContainingQuestion() { return containingQuestion; }
-
-    public void setContainingQuestion(String containingQuestion) {
-        this.containingQuestion = containingQuestion;
-    }
-
     public String getOptionText() {
         return optionText;
     }
@@ -60,26 +46,15 @@ public class Option {
         this.optionText = optionText;
     }
 
-    public Long getQuestionId() { return questionId; }
-
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
-
     public Question getQuestion() { return question; }
 
     public void setQuestion(Question question) { this.question = question; }
-
-
-    //public String getLinkText() { return linkText; }
-
-    //public void setLinkText(String linkText) { this.linkText = linkText; }
 
     // This is for easier debug.
     @Override
     public String toString() {
         return String.format(
-                "optionText [containingQuestion=%s, optionText=%s]",
-                containingQuestion, optionText);
+                "optionText [optionText=%s]",
+                optionText);
     }
 }

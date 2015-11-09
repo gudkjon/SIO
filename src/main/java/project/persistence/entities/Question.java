@@ -14,12 +14,12 @@ public class Question {
 
     // Declare that this attribute is the id
     @Id
-    @Column(name="questionId2")
+    @Column(name="questionId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "surveyId2")
+    @JoinColumn(name = "surveyId")
     private Survey survey;
 
     @OneToMany(mappedBy = "question",
@@ -28,10 +28,9 @@ public class Question {
             orphanRemoval = true)
     private List<Option> options;
 
-    private Long surveyId;
     private String questionText;
     private String type;
-    //private String linkText;
+
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Question() {
@@ -42,9 +41,6 @@ public class Question {
         this.type = type;
     }
 
-    public Question(Long surveyId) {
-        this.surveyId = surveyId;
-    }
     public Long getId() {
         return id;
     }
@@ -52,10 +48,6 @@ public class Question {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getSurveyId() { return surveyId; }
-
-    public void setSurveyId(Long surveyId) { this.surveyId = surveyId; }
 
     public String getQuestionText() {
         return questionText;

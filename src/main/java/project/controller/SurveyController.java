@@ -37,18 +37,9 @@ public class SurveyController {
         this.optionService = optionService;
     }
 
-    // Method that returns the correct view for the URL /postit
-    // This handles the GET request for this URL
-    // Notice the `method = RequestMethod.GET` part
     @RequestMapping(value = "/survey", method = RequestMethod.GET)
     public String surveyViewGet(Model model){
-
-        // Add a new Postit Note to the model for the form
-        // If you look at the form in SurveyCreator.jsp, you can see that we
-        // reference this attribute there by the name `survey`.
         model.addAttribute("survey",new Survey());
-
-        // Here we get all the Postit Notes (in a reverse order) and add them to the model
         model.addAttribute("surveys", surveyService.findAllReverseOrder());
 
         // Return the view
@@ -62,10 +53,8 @@ public class SurveyController {
     // into the form.
     // Notice the `method = RequestMethod.POST` part
     @RequestMapping(value = "/survey", method = RequestMethod.POST)
-    public String surveyViewPost(@ModelAttribute("survey") Survey survey,
-                                     Model model){
+    public String surveyViewPost(@ModelAttribute("survey") Survey survey){
         surveyService.save(survey);
-
         return "redirect:/survey/";
     }
 
@@ -80,7 +69,7 @@ public class SurveyController {
 
     @RequestMapping(value = "/survey/surveyedit/{surveyId}", method = RequestMethod.POST)
     public String SurveyEditorPostQuestion(@PathVariable Long surveyId, @ModelAttribute("question")
-                                           Question question, Model model) {
+                                           Question question) {
         Survey survey = surveyService.findOne(surveyId);
         survey.addQuestion(question);
         surveyService.save(survey);
@@ -90,9 +79,7 @@ public class SurveyController {
     }
 
     @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}", method = RequestMethod.POST)
-    public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long questionId,
-                                             Model model){
-
+    public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long questionId){
         Question questionToDelete = questionService.findOne(questionId);
         Survey survey = surveyService.findOne(surveyId);
         survey.getQuestions().remove(questionToDelete);
@@ -112,7 +99,7 @@ public class SurveyController {
 
     @RequestMapping(value = "/survey/surveyedit/{surveyId}/{questionId}", method = RequestMethod.POST)
     public String SurveyEditorPostOption(@PathVariable Long surveyId, @PathVariable Long questionId,
-                                           @ModelAttribute("option") Option option, Model model) {
+                                           @ModelAttribute("option") Option option) {
         Question question = questionService.findOne(questionId);
         question.addOption(option);
         optionService.save(option);
@@ -121,7 +108,7 @@ public class SurveyController {
 
     @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}/{optionId}", method = RequestMethod.POST)
     public String SurveyEditorDeleteOption(@PathVariable Long surveyId, @PathVariable Long questionId,
-                                           @PathVariable Long optionId, Model model) {
+                                           @PathVariable Long optionId) {
         Option optionToDelete = optionService.findOne(optionId);
         Question question = questionService.findOne(questionId);
         question.getOptions().remove(optionToDelete);

@@ -38,13 +38,4 @@ public interface QuestionService {
      */
     Question findOne(Long id);
 
-    /**
-     * Find all {@link Question}s with {@link String name}
-     * @param surveyId {@link Long}
-     * @return All {@link Question}s with the {@link Long surveyId} passed
-     */
-    List<Question> findBySurveyId(Long surveyId);
-
-    List<Question> findBySurveyIdAndId(Long surveyId, Long id);
-
 }

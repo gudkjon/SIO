@@ -51,14 +51,4 @@ public class QuestionServiceImplementation implements QuestionService {
     public Question findOne(Long id) {
         return repository.findOne(id);
     }
-
-    @Override
-    public List<Question> findBySurveyId(Long surveyId) {
-        return repository.findBySurveyId(surveyId);
-    }
-
-    @Override
-    public List<Question> findBySurveyIdAndId(Long surveyId, Long id) {
-        return repository.findBySurveyIdAndId(surveyId,id);
-    }
 }

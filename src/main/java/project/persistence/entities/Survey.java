@@ -14,14 +14,12 @@ public class Survey {
 
     // Declare that this attribute is the id
     @Id
-    @Column(name = "surveyId2")
+    @Column(name = "surveyId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String author;
-    //private String linkText;
-    //private Question[] questions;
 
     @OneToMany(mappedBy = "survey",
             fetch = FetchType.EAGER,
@@ -78,11 +76,6 @@ public class Survey {
             question.setSurvey(this);
         }
     }
-
-    //public String getLinkText() { return linkText; }
-
-    //public void setLinkText(String linkText) { this.linkText = linkText; }
-
 
     // This is for easier debug.
     @Override

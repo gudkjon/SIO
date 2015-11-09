@@ -34,12 +34,4 @@ public interface OptionRepository extends JpaRepository<Option, Long> {
     List<Option> findAllByOrderByIdDesc();
 
     Option findOne(Long id);
-
-    List<Option> findBySurveyId(Long surveyId);
-
-    List<Option> findBySurveyIdAndContainingQuestion(Long surveyId, String containingQuestion);
-
-    List<Option> findBySurveyIdAndId(Long surveyId, Long id);
-
-    List<Option> findBySurveyIdAndQuestionId(Long surveyId, Long questionId);
 }
