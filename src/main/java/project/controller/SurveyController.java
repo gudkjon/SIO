@@ -64,18 +64,8 @@ public class SurveyController {
     @RequestMapping(value = "/survey", method = RequestMethod.POST)
     public String surveyViewPost(@ModelAttribute("survey") Survey survey,
                                      Model model){
-
-        // Save the Postit Note that we received from the form
-        //survey.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(survey.getName()));
         surveyService.save(survey);
 
-        // Here we get all the Postit Notes (in a reverse order) and add them to the model
-        model.addAttribute("surveys", surveyService.findAllReverseOrder());
-
-        // Add a new Postit Note to the model for the form
-        // If you look at the form in SurveyCreator.jsp, you can see that we
-        // reference this attribute there by the name `survey`.
-        model.addAttribute("survey", new Survey());
         return "redirect:/survey/";
     }
 
@@ -117,7 +107,6 @@ public class SurveyController {
         Question question = questionService.findOne(questionId);
         model.addAttribute("question", question);
         model.addAttribute("option", new Option());
-        model.addAttribute("options", question.getOptions());
         return "surveys/QuestionEditor";
     }
 

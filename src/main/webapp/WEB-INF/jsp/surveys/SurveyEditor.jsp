@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
     <body>
-        <h1>${survey.name}</h1>
-        <p>by ${survey.author}</p>
+        <h1>${survey.getName()}</h1>
+        <p>by ${survey.getAuthor()}</p>
         <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.getId()}">
             <table>
                 <tr>
@@ -47,7 +47,7 @@
                 <table class="notes">
                     <c:forEach var="question" items="${survey.getQuestions()}">
                         <tr>
-                            <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.questionText}</a></td>
+                            <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
                             <td>${question.type}</td>
                             <td>
                                 <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">

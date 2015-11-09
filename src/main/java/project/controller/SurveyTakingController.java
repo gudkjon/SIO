@@ -64,14 +64,8 @@ public class SurveyTakingController {
         // If you look at the form in SurveyCreator.jsp, you can see that we
         // reference this attribute there by the name `survey`.
         // Here we get all the Postit Notes (in a reverse order) and add them to the model
-        ArrayList<List> optionList = new ArrayList<List>();
-        List<Question> questions = questionService.findBySurveyId(surveyId);
-        for(int i = 0; i < questions.size(); i++) {
-            optionList.add(optionService.findBySurveyIdAndQuestionId(surveyId, questions.get(i).getId()));
-        }
+
         model.addAttribute("survey", surveyService.findOne(surveyId));
-        model.addAttribute("questions", questions);
-        model.addAttribute("options", optionList);
 
         // Return the view
         return "surveys/SurveyTaker";

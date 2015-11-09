@@ -25,9 +25,9 @@
                         <c:forEach var="survey" items="${surveys}">
                             <tr>
                                 <td>
-                                    <a href="/survey/take/${survey.id}">${survey.name}</a>
+                                    <a href="/survey/take/${survey.getId()}">${survey.getName()}</a>
                                 </td>
-                                <td>${survey.author}</td>
+                                <td>${survey.getAuthor()}</td>
                             </tr>
                         </c:forEach>
                     </table>

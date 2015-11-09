@@ -30,15 +30,15 @@
 
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
-            <c:when test="${not empty options}">
+            <c:when test="${not empty question.getOptions()}">
                 <%--Create a table for the Postit Notes--%>
                 <table class="notes">
-                    <c:forEach var="option" items="${options}">
+                    <c:forEach var="option" items="${question.getOptions()}">
                         <td>
-                            <p>${option.optionText}</p>
+                            <p>${option.getOptionText()}</p>
                         </td>
                         <td>
-                            <form method = "post" action = "/survey/surveyedit/delete/${option.surveyId}/${option.questionId}/${option.id}">
+                            <form method = "post" action = "/survey/surveyedit/delete/${option.getQuestion().getSurvey().getId()}/${option.getQuestion().getId()}/${option.getId()}">
                                 <input type="submit" value="Delete">
                             </form>
                         </td>

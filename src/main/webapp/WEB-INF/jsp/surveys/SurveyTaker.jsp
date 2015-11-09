@@ -14,8 +14,8 @@
     </head>
     <body>
 
-        <h1>${survey.name}</h1>
-        <p>by ${survey.author}</p>
+        <h1>${survey.getName()}</h1>
+        <p>by ${survey.getAuthor()}</p>
 
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
@@ -24,49 +24,49 @@
                     <c:forEach var="question" items="${survey.getQuestions()}">
                         <tr>
                             <td>
-                                <a href="/survey/surveyedit/${question.surveyId}/${question.getId()}">${question.questionText}</a>
+                                <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
                             </td>
                             <td>
                                 ${question.type}
                             </td>
                             <td>
-                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.getId()}">
+                                <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">
                                     <input type="submit" value="Delete">
                                 </form>
                             </td>
                             <td>
                                 <c:choose>
                                     <%--Dropdown options--%>
-                                    <c:when test="${question.type == 'dropDown'}">
+                                    <c:when test="${question.getType() == 'dropDown'}">
                                         <select>
                                             <option value="Select answer">${"Select answer"}</option>
                                             <c:forEach var="option" items="${question.getOptions()}">
                                                 <p>${option.getId()}</p>
-                                                <option value="${option.getId()}">${option.optionText}</option>
+                                                <option value="${option.getId()}">${option.getOptionText()}</option>
                                             </c:forEach>
                                         </select>
                                     </c:when>
 
                                     <%--radio button options--%>
-                                    <c:when test="${question.type == 'radioButton'}">
+                                    <c:when test="${question.getType() == 'radioButton'}">
                                         <c:forEach var="option" items="${question.getOptions()}">
                                             <label>
-                                                <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.optionText}
+                                                <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
                                             </label>
                                             <br>
                                         </c:forEach>
                                     </c:when>
 
                                     <%--Input option--%>
-                                    <c:when test="${question.type == 'input'}">
+                                    <c:when test="${question.getType() == 'input'}">
                                         <input placeholder="Enter answer" type="text" name="${option.getId()}" />
                                     </c:when>
 
                                     <%--Multiple question option--%>
-                                    <c:when test="${question.type == 'multiQuestion'}">
+                                    <c:when test="${question.getType() == 'multiQuestion'}">
                                         <c:forEach var="option" items="${question.getOptions()}">
                                             <label>
-                                                <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.optionText}
+                                                <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
                                             </label>
                                             <br>
                                         </c:forEach>
