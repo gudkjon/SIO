@@ -15,7 +15,7 @@
     <body>
         <h1>${survey.name}</h1>
         <p>by ${survey.author}</p>
-        <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.id}">
+        <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.getId()}">
             <table>
                 <tr>
                     <td> Question:</td>
@@ -43,14 +43,14 @@
 
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
-            <c:when test="${not empty questions}">
+            <c:when test="${not empty survey.getQuestions()}">
                 <table class="notes">
-                    <c:forEach var="question" items="${questions}">
+                    <c:forEach var="question" items="${survey.getQuestions()}">
                         <tr>
-                            <td><a href="/survey/surveyedit/${question.surveyId}/${question.id}">${question.questionText}</a></td>
+                            <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.questionText}</a></td>
                             <td>${question.type}</td>
                             <td>
-                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.id}">
+                                <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">
                                     <input type="submit" value="Delete">
                                 </form>
                             </td>

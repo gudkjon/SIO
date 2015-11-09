@@ -1,6 +1,7 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * The class for the Postit author itself.
@@ -13,6 +14,7 @@ public class Survey {
 
     // Declare that this attribute is the id
     @Id
+    @Column(name = "surveyId2")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,9 +23,17 @@ public class Survey {
     //private String linkText;
     //private Question[] questions;
 
+    @OneToMany(mappedBy = "survey",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Question> questions;
+
+
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Survey() {
+
     }
 
     public Survey(String name, String author) {
@@ -53,6 +63,20 @@ public class Survey {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public List<Question> getQuestions() { return questions; }
+
+    public void setQuestions(List<Question> questions) { this.questions = questions; }
+
+    public void addQuestion(Question question) {
+        if (!getQuestions().contains(question)) {
+            getQuestions().add(question);
+            if (question.getSurvey() != null) {
+                question.getSurvey().getQuestions().remove(question);
+            }
+            question.setSurvey(this);
+        }
     }
 
     //public String getLinkText() { return linkText; }

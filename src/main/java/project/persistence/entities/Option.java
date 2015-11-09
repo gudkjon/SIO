@@ -13,6 +13,7 @@ public class Option {
 
     // Declare that this attribute is the id
     @Id
+    @Column(name = "optionId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,6 +22,11 @@ public class Option {
     private String optionText;
     //private String linkText;
     private Long questionId;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "questionId2")
+    private Question question;
+
     //private String[] options;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
@@ -59,6 +65,11 @@ public class Option {
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
+
+    public Question getQuestion() { return question; }
+
+    public void setQuestion(Question question) { this.question = question; }
+
 
     //public String getLinkText() { return linkText; }
 

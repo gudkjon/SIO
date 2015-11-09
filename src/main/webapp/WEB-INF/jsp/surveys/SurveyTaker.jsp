@@ -19,18 +19,18 @@
 
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
-            <c:when test="${not empty questions}">
+            <c:when test="${not empty survey.getQuestions()}">
                 <table class="notes">
-                    <c:forEach var="question" items="${questions}" varStatus="status">
+                    <c:forEach var="question" items="${survey.getQuestions()}">
                         <tr>
                             <td>
-                                <a href="/survey/surveyedit/${question.surveyId}/${question.id}">${question.questionText}</a>
+                                <a href="/survey/surveyedit/${question.surveyId}/${question.getId()}">${question.questionText}</a>
                             </td>
                             <td>
                                 ${question.type}
                             </td>
                             <td>
-                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.id}">
+                                <form method = post action = "/survey/surveyedit/delete/${question.surveyId}/${question.getId()}">
                                     <input type="submit" value="Delete">
                                 </form>
                             </td>
@@ -40,18 +40,18 @@
                                     <c:when test="${question.type == 'dropDown'}">
                                         <select>
                                             <option value="Select answer">${"Select answer"}</option>
-                                            <c:forEach var="option" items="${options.get(status.index)}">
-                                                <p>${option.id}</p>
-                                                <option value="${option.id}">${option.optionText}</option>
+                                            <c:forEach var="option" items="${question.getOptions()}">
+                                                <p>${option.getId()}</p>
+                                                <option value="${option.getId()}">${option.optionText}</option>
                                             </c:forEach>
                                         </select>
                                     </c:when>
 
                                     <%--radio button options--%>
                                     <c:when test="${question.type == 'radioButton'}">
-                                        <c:forEach var="option" items="${options.get(status.index)}">
+                                        <c:forEach var="option" items="${question.getOptions()}">
                                             <label>
-                                                <input type="radio" name="${question.id}" value="${option.id}" />${option.optionText}
+                                                <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.optionText}
                                             </label>
                                             <br>
                                         </c:forEach>
@@ -59,14 +59,14 @@
 
                                     <%--Input option--%>
                                     <c:when test="${question.type == 'input'}">
-                                        <input placeholder="Enter answer" type="text" name="${option.id}" />
+                                        <input placeholder="Enter answer" type="text" name="${option.getId()}" />
                                     </c:when>
 
                                     <%--Multiple question option--%>
                                     <c:when test="${question.type == 'multiQuestion'}">
-                                        <c:forEach var="option" items="${options.get(status.index)}">
+                                        <c:forEach var="option" items="${question.getOptions()}">
                                             <label>
-                                                <input type="checkbox" name="${question.id}" value="${option.id}" />${option.optionText}
+                                                <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.optionText}
                                             </label>
                                             <br>
                                         </c:forEach>

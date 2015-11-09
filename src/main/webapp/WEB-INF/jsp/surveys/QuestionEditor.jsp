@@ -13,11 +13,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
-        <h1>${question.get(0).questionText}</h1>
-        <p>type: ${question.get(0).type}</p>
+        <h1>${question.getQuestionText()}</h1>
+        <p>type: ${question.getType()}</p>
 
-        <sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.get(0).surveyId}/${question.get(0).id}">
-
+        <sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">
             <table>
                 <tr>
                     <td> Option:</td>

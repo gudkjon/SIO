@@ -76,109 +76,67 @@ public class SurveyController {
         // If you look at the form in SurveyCreator.jsp, you can see that we
         // reference this attribute there by the name `survey`.
         model.addAttribute("survey", new Survey());
-        //model.addAttribute("survey", new Survey());
-
-        // Return the view
-        //return "surveys/SurveyCreator";
         return "redirect:/survey/";
     }
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
     public String surveyGetAuthorFromName(@PathVariable Long surveyId,
                                              Model model){
-
-        // Get all Postit Notes with this name and add them to the model
         model.addAttribute("survey", surveyService.findOne(surveyId));
-        model.addAttribute("questions", questionService.findBySurveyId(surveyId));
         model.addAttribute("question", new Question());
 
         return "surveys/SurveyEditor";
     }
 
-
-    /*@RequestMapping(value = "/survey/{name}", method = RequestMethod.POST)
-    public String surveyEditorViewPost(@ModelAttribute("survey") Survey survey,
-                                 Model model){
-
-        // Save the Postit Note that we received from the form
-        surveyService.save(survey);
-
-        // Here we get all the Postit Notes (in a reverse order) and add them to the model
-        model.addAttribute("surveys", surveyService.findAllReverseOrder());
-
-        // Add a new Postit Note to the model for the form
-        // If you look at the form in SurveyCreator.jsp, you can see that we
-        // reference this attribute there by the name `survey`.
-        model.addAttribute("survey", new Survey());
-        //model.addAttribute("survey", new Survey());
-
-        // Return the view
-        //return "surveys/SurveyCreator";
-        return "redirect:/survey/";
-    }*/
-
     @RequestMapping(value = "/survey/surveyedit/{surveyId}", method = RequestMethod.POST)
     public String SurveyEditorPostQuestion(@PathVariable Long surveyId, @ModelAttribute("question")
                                            Question question, Model model) {
-        question.setSurveyId(surveyId);
-        //question.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(question.getQuestionText()));
-        questionService.save(question);
-        model.addAttribute("questions", questionService.findBySurveyId(surveyId));
-        model.addAttribute("question", new Question());
-        model.addAttribute("survey", surveyService.findOne(surveyId));
+        Survey survey = surveyService.findOne(surveyId);
+        survey.addQuestion(question);
+        surveyService.save(survey);
 
-        //return "surveys/SurveyEditor";
         return "redirect:/survey/"+surveyId;
 
     }
 
-    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{id}", method = RequestMethod.POST)
-    public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long id,
+    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}", method = RequestMethod.POST)
+    public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long questionId,
                                              Model model){
 
-        Question questionToDelete = questionService.findBySurveyIdAndId(surveyId,id).get(0);
-        questionService.delete(questionToDelete);
-        model.addAttribute("questions", questionService.findBySurveyId(surveyId));
-        model.addAttribute("question", new Question());
-        model.addAttribute("options", optionService.findBySurveyId(surveyId));
-        model.addAttribute("survey", surveyService.findOne(surveyId));
+        Question questionToDelete = questionService.findOne(questionId);
+        Survey survey = surveyService.findOne(surveyId);
+        survey.getQuestions().remove(questionToDelete);
+        surveyService.save(survey);
 
-        //return "surveys/SurveyEditor";
         return "redirect:/survey/"+surveyId;
     }
 
     @RequestMapping(value = "/survey/surveyedit/{surveyId}/{questionId}", method = RequestMethod.GET)
     public String SurveyEditorViewQuestion(@PathVariable Long surveyId, @PathVariable Long questionId,
                                            Model model) {
-        model.addAttribute("question", questionService.findBySurveyIdAndId(surveyId, questionId));
+        Question question = questionService.findOne(questionId);
+        model.addAttribute("question", question);
         model.addAttribute("option", new Option());
-        model.addAttribute("options", optionService.findBySurveyIdAndQuestionId(surveyId, questionId));
+        model.addAttribute("options", question.getOptions());
         return "surveys/QuestionEditor";
     }
 
     @RequestMapping(value = "/survey/surveyedit/{surveyId}/{questionId}", method = RequestMethod.POST)
     public String SurveyEditorPostOption(@PathVariable Long surveyId, @PathVariable Long questionId,
                                            @ModelAttribute("option") Option option, Model model) {
-        option.setSurveyId(surveyId);
-        option.setQuestionId(questionId);
-        //option.setLinkText(stringManipulationService.convertsSpecialCharactersToEncoding(option.getOptionText()));
+        Question question = questionService.findOne(questionId);
+        question.addOption(option);
         optionService.save(option);
-        model.addAttribute("question", questionService.findBySurveyIdAndId(surveyId, questionId));
-        model.addAttribute("option", new Option());
-        model.addAttribute("options", optionService.findBySurveyIdAndQuestionId(surveyId, questionId));
-        //return "surveys/QuestionEditor";
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 
-    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}/{optionId}", method = RequestMethod.POST)
     public String SurveyEditorDeleteOption(@PathVariable Long surveyId, @PathVariable Long questionId,
-                                           @PathVariable Long id, Model model) {
-        Option optionToDelete = optionService.findOne(id);
-        optionService.delete(optionToDelete);
-        model.addAttribute("question", questionService.findBySurveyIdAndId(surveyId, questionId));
-        model.addAttribute("option", new Option());
-        model.addAttribute("options", optionService.findBySurveyIdAndQuestionId(surveyId, questionId));
-        //return "surveys/QuestionEditor";
+                                           @PathVariable Long optionId, Model model) {
+        Option optionToDelete = optionService.findOne(optionId);
+        Question question = questionService.findOne(questionId);
+        question.getOptions().remove(optionToDelete);
+        questionService.save(question);
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 }

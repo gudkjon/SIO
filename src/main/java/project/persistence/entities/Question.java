@@ -1,6 +1,7 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * The class for the Question itself.
@@ -13,8 +14,19 @@ public class Question {
 
     // Declare that this attribute is the id
     @Id
+    @Column(name="questionId2")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "surveyId2")
+    private Survey survey;
+
+    @OneToMany(mappedBy = "question",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Option> options;
 
     private Long surveyId;
     private String questionText;
@@ -59,19 +71,29 @@ public class Question {
 
     public String getType() { return type; }
 
-    //public String getLinkText() { return linkText; }
+    public Survey getSurvey() { return survey; }
 
-    //public void setLinkText(String linkText) { this.linkText = linkText; }
+    public void setSurvey(Survey survey) { this.survey = survey; }
 
-    //public String[] getOptions() {
+    public List<Option> getOptions() { return options; }
 
-    //public void setOptions(String[] options) {
+    public void setOptions(List<Option> options) { this.options = options; }
+
+    public void addOption(Option option) {
+        if (!getOptions().contains(option)) {
+            getOptions().add(option);
+            if (option.getQuestion() != null) {
+                option.getQuestion().getOptions().remove(option);
+            }
+            option.setQuestion(this);
+        }
+    }
 
     // This is for easier debug.
     @Override
     public String toString() {
         return String.format(
-                "Survey [question=%s, type=%s]",
+                "Question [question=%s, type=%s]",
                 questionText, type);
     }
 }
