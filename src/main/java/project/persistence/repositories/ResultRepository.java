@@ -34,7 +34,7 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
     List<Result> findAllByOrderByIdDesc();
 
     Result findOne(Long id);
-    
+
     List<Result> findByUserId(Long userId);
 
 }
