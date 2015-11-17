@@ -113,6 +113,7 @@ public class SurveyController {
         Question question = questionService.findOne(questionId);
         question.getOptions().remove(optionToDelete);
         questionService.save(question);
+
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 }

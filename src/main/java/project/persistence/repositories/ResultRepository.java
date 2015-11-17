@@ -34,13 +34,7 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
     List<Result> findAllByOrderByIdDesc();
 
     Result findOne(Long id);
-
-    List<Result> findBySurveyId(Long surveyId);
-
-    List<Result> findByQuestionId(Long questionId);
-
-    List<Result> findBySurveyIdAndUserId(Long surveyId, Long userId);
-
+    
     List<Result> findByUserId(Long userId);
 
 }

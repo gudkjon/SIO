@@ -1,6 +1,7 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * The class for the Question itself.
@@ -13,19 +14,26 @@ public class Result {
 
     // Declare that this attribute is the id
     @Id
+    @Column(name = "resultId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long surveyId;
-    //private String linkText;
-    private Long questionId;
-    private Long optionId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "questionId")
+    private Question question;
+
     private Long userId;
-    //private String[] options;
+
+    @OneToMany(mappedBy = "result",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Option> options;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Result() {
+
     }
 
     public Long getId() {
@@ -36,23 +44,17 @@ public class Result {
         this.id = id;
     }
 
-    public Long getSurveyId() { return surveyId; }
-
-    public void setSurveyId(Long surveyId) { this.surveyId = surveyId; }
-
-    public Long getOptionId() {
-        return optionId;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setOptionId(Long optionId) {
-        this.optionId = optionId;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
-    public Long getQuestionId() { return questionId; }
+    public Set<Option> getOptions() { return options; }
 
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
+    public void setOptions(Set<Option> options) { this.options = options; }
 
     public Long getUserId() { return userId; }
 
@@ -62,7 +64,7 @@ public class Result {
     @Override
     public String toString() {
         return String.format(
-                "Result [surveyId=%d, questionId=%d, optionId=%d, userId=%d]",
-                surveyId,questionId, optionId, userId);
+                "Result [question=%s, user=%s]",
+                this.getQuestion().getQuestionText(), userId);
     }
 }

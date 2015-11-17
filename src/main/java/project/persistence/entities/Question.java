@@ -28,6 +28,12 @@ public class Question {
             orphanRemoval = true)
     private List<Option> options;
 
+    @OneToMany(mappedBy = "question",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Result> results;
+
     private String questionText;
     private String type;
 
@@ -78,6 +84,20 @@ public class Question {
                 option.getQuestion().getOptions().remove(option);
             }
             option.setQuestion(this);
+        }
+    }
+
+    public List<Result> getResults() { return results; }
+
+    public void setResults(List<Result> results) { this.results = results; }
+
+    public void addResult(Result result) {
+        if (!getResults().contains(result)) {
+            getResults().add(result);
+            if (result.getQuestion() != null) {
+                result.getQuestion().getResults().remove(result);
+            }
+            result.setQuestion(this);
         }
     }
 

@@ -27,7 +27,6 @@ public class Survey {
             orphanRemoval = true)
     private List<Question> questions;
 
-
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Survey() {

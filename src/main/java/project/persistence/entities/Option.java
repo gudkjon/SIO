@@ -23,6 +23,10 @@ public class Option {
     @JoinColumn(name = "questionId")
     private Question question;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "resultId")
+    private Result result;
+
     //private String[] options;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
@@ -49,6 +53,10 @@ public class Option {
     public Question getQuestion() { return question; }
 
     public void setQuestion(Question question) { this.question = question; }
+
+    public Result getResult() { return result; }
+
+    public void setResult(Result result) { this.result = result; }
 
     // This is for easier debug.
     @Override

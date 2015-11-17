@@ -54,18 +54,5 @@ public class ResultServiceImplementation implements ResultService {
     }
 
     @Override
-    public List<Result> findBySurveyId(Long surveyId) {
-        return repository.findBySurveyId(surveyId);
-    }
-
-    @Override
     public List<Result> findByUserId(Long userId) { return repository.findByUserId(userId); }
-
-    @Override
-    public List<Result> findByQuestionId(Long questionId) { return repository.findByQuestionId(questionId); }
-
-    @Override
-    public List<Result> findBySurveyIdAndUserId(Long surveyId, Long UserId) {
-        return repository.findBySurveyIdAndUserId(surveyId, UserId);
-    }
 }

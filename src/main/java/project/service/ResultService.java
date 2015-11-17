@@ -40,15 +40,8 @@ public interface ResultService {
 
     /**
      * Find all {@link Result}s with {@link String name}
-     * @param surveyId {@link Long}
-     * @return All {@link Result}s with the {@link Long surveyId} passed
+     * @param userId {@link Long}
+     * @return All {@link Result}s with the {@link Long userId} passed
      */
-    List<Result> findBySurveyId(Long surveyId);
-
-    List<Result> findByQuestionId(Long questionId);
-
     List<Result> findByUserId(Long userId);
-
-    List<Result> findBySurveyIdAndUserId(Long surveyId, Long id);
-
 }
