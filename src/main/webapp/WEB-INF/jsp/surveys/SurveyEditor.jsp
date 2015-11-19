@@ -37,7 +37,7 @@
             </table>
 
             <input type="submit" VALUE="Add Question!"/>
-
+            <a href="/survey">No more Questions</a>
         </sf:form>
 
 
