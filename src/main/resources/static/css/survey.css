@@ -1,5 +1,23 @@
+/*ELEMENTS*/
+body {
+    background-image: url("../images/background-blue.jpg");
+    background-size: cover;
+    /*width: 100%;*/
+    /*margin: auto;*/
+}
+
+/*TABLE*/
 table.notes {
     border: 1px black solid;
+}
+
+.notes{
+    width: 100%;
+}
+
+.table{
+    margin: auto;
+    border-radius: 10px;
 }
 
 .notes td {
@@ -8,16 +26,32 @@ table.notes {
 }
 
 table.notes tr:nth-child(even) {
-    background-color: antiquewhite;
+    background-color: #eee;
 }
 
 table.notes tr:nth-child(odd) {
-    background-color: azure;
+    background-color: white;
 }
 
-body {
-    background-image: url("../images/background-blue.jpg");
-    background-size: cover;
-    width: 100%;
+/*FORM*/
+.form-container{
+    width: 500px;
+    /*text-align: center;*/
     margin: auto;
+}
+
+.gray-background{
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.box{
+    width: 400px;
+    margin: auto;
+}
+
+.blue-letters{
+    color: darkblue;
 }
