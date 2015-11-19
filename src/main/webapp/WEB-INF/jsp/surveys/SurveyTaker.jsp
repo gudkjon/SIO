@@ -30,11 +30,6 @@
                                 ${question.type}
                             </td>
                             <td>
-                                <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">
-                                    <input type="submit" value="Delete">
-                                </form>
-                            </td>
-                            <td>
                                 <c:choose>
                                     <%--Dropdown options--%>
                                     <c:when test="${question.getType() == 'dropDown'}">
