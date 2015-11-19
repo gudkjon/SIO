@@ -42,5 +42,12 @@ public class ResultController {
         return "surveys/ResultView";
     }
 
+    @RequestMapping(value = "/allResults", method = RequestMethod.GET)
+    public String returnsAllResultsView(Model model){
+
+    //  Return the view
+        return "surveys/AllResultsView";
+    }
+
 
 }

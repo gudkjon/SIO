@@ -7,7 +7,7 @@
 <html lang="en">
 
     <head>
-        <title>Survey Editor</title>
+        <title>Viewing A Result</title>
 
         <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />--%>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
