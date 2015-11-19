@@ -20,61 +20,64 @@
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty survey.getQuestions()}">
-                <table class="notes">
-                    <c:forEach var="question" items="${survey.getQuestions()}">
-                        <tr>
-                            <td>
-                                <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
-                            </td>
-                            <td>
-                                ${question.type}
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <%--Dropdown options--%>
-                                    <c:when test="${question.getType() == 'dropDown'}">
-                                        <select>
-                                            <option value="Select answer">${"Select answer"}</option>
+                <sf:form method="POST" commandName="results" action="/">
+                    <table class="notes">
+                        <c:forEach var="question" items="${survey.getQuestions()}">
+                            <tr>
+                                <td>
+                                    <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
+                                </td>
+                                <td>
+                                    ${question.type}
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <%--Dropdown options--%>
+                                        <c:when test="${question.getType() == 'dropDown'}">
+                                            <select>
+                                                <option value="Select answer">${"Select answer"}</option>
+                                                <c:forEach var="option" items="${question.getOptions()}">
+                                                    <p>${option.getId()}</p>
+                                                    <option value="${option.getId()}">${option.getOptionText()}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </c:when>
+
+                                        <%--radio button options--%>
+                                        <c:when test="${question.getType() == 'radioButton'}">
                                             <c:forEach var="option" items="${question.getOptions()}">
-                                                <p>${option.getId()}</p>
-                                                <option value="${option.getId()}">${option.getOptionText()}</option>
+                                                <label>
+                                                    <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
+                                                </label>
+                                                <br>
                                             </c:forEach>
-                                        </select>
-                                    </c:when>
+                                        </c:when>
 
-                                    <%--radio button options--%>
-                                    <c:when test="${question.getType() == 'radioButton'}">
-                                        <c:forEach var="option" items="${question.getOptions()}">
-                                            <label>
-                                                <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
-                                            </label>
-                                            <br>
-                                        </c:forEach>
-                                    </c:when>
+                                        <%--Input option--%>
+                                        <c:when test="${question.getType() == 'input'}">
+                                            <input placeholder="Enter answer" type="text" name="${option.getId()}" />
+                                        </c:when>
 
-                                    <%--Input option--%>
-                                    <c:when test="${question.getType() == 'input'}">
-                                        <input placeholder="Enter answer" type="text" name="${option.getId()}" />
-                                    </c:when>
+                                        <%--Multiple question option--%>
+                                        <c:when test="${question.getType() == 'multiQuestion'}">
+                                            <c:forEach var="option" items="${question.getOptions()}">
+                                                <label>
+                                                    <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
+                                                </label>
+                                                <br>
+                                            </c:forEach>
+                                        </c:when>
 
-                                    <%--Multiple question option--%>
-                                    <c:when test="${question.getType() == 'multiQuestion'}">
-                                        <c:forEach var="option" items="${question.getOptions()}">
-                                            <label>
-                                                <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
-                                            </label>
-                                            <br>
-                                        </c:forEach>
-                                    </c:when>
-
-                                    <c:otherwise>
-                                        <p> No options </p>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                                        <c:otherwise>
+                                            <p> No options </p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <input type="submit" VALUE="Post your answers!"/>
+                </sf:form>
             </c:when>
 
             <%--If all tests are false, then do this--%>
