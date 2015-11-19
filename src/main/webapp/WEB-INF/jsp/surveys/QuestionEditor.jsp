@@ -27,7 +27,7 @@
             <input type="submit" VALUE="Add Option!"/>
 
         </sf:form>
-
+        <a href="/survey/${question.getSurvey().getId()}">Done!</a>
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty question.getOptions()}">
