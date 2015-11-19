@@ -8,6 +8,7 @@ import javax.persistence.*;
  * Be sure to annotate any entities you have with the @Entity annotation.
  */
 @Entity
+@Embeddable
 @Table(name = "users") // If you want to specify a table name, you can do so here
 public class User {
 
