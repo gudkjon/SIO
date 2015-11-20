@@ -25,7 +25,7 @@
                 </tr>
             </table>
             <input type="submit" VALUE="Add Option!"/>
-
+            <a href="/survey/${question.getSurvey().getId()}">Doneapalooza!</a>
         </sf:form>
 
         <c:choose>

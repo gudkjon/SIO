@@ -19,6 +19,7 @@ import project.service.OptionService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.HashSet;
 
 @Controller
 public class SurveyController {
@@ -60,8 +61,12 @@ public class SurveyController {
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
     public String surveyGetAuthorFromName(@PathVariable Long surveyId,
-                                             Model model){
-        model.addAttribute("survey", surveyService.findOne(surveyId));
+                                             Model model) {
+        Survey survey = surveyService.findOne(surveyId);
+        System.out.println(survey.getQuestions().size());
+
+        model.addAttribute("survey", survey);
+        model.addAttribute("questions", new HashSet<Question>(survey.getQuestions()));
         model.addAttribute("question", new Question());
 
         return "surveys/SurveyEditor";
@@ -75,7 +80,6 @@ public class SurveyController {
         surveyService.save(survey);
 
         return "redirect:/survey/"+surveyId;
-
     }
 
     @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}", method = RequestMethod.POST)
@@ -94,6 +98,7 @@ public class SurveyController {
         Question question = questionService.findOne(questionId);
         model.addAttribute("question", question);
         model.addAttribute("option", new Option());
+
         return "surveys/QuestionEditor";
     }
 
@@ -101,8 +106,10 @@ public class SurveyController {
     public String SurveyEditorPostOption(@PathVariable Long surveyId, @PathVariable Long questionId,
                                            @ModelAttribute("option") Option option) {
         Question question = questionService.findOne(questionId);
+        //questionService.delete(question);
         question.addOption(option);
-        optionService.save(option);
+        questionService.save(question);
+        //optionService.save(option);
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 

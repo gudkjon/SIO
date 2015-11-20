@@ -37,7 +37,7 @@
             </table>
 
             <input type="submit" VALUE="Add Question!"/>
-
+            <a href="/survey">No more Questions</a>
         </sf:form>
 
 
@@ -45,7 +45,7 @@
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty survey.getQuestions()}">
                 <table class="notes">
-                    <c:forEach var="question" items="${survey.getQuestions()}">
+                    <c:forEach var="question" items="${questions}">
                         <tr>
                             <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
                             <td>${question.type}</td>

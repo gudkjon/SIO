@@ -20,6 +20,8 @@ public class Survey {
 
     private String name;
     private String author;
+    private String category;
+    private Boolean test;
 
     @OneToMany(mappedBy = "survey",
             fetch = FetchType.EAGER,
@@ -61,6 +63,14 @@ public class Survey {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
+
+    public Boolean getTest() { return test; }
+
+    public void setTest(boolean test) { this.test = test; }
 
     public List<Question> getQuestions() { return questions; }
 
