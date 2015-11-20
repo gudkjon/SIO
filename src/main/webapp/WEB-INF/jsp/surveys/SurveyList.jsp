@@ -21,7 +21,7 @@
             <c:choose>
                 <c:when test="${not empty surveys}">
                     <%--Create a table for the Postit Notes--%>
-                    <table class="notes">
+                    <table class="surveys">
                         <c:forEach var="survey" items="${surveys}">
                             <tr>
                                 <td>

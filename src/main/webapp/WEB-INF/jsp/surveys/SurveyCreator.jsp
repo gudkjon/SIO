@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Create Survey"/>
                     </div>
-
+                    <a href="/result/">result</a>
                 </sf:form>
             </div>
         </div>
@@ -44,18 +44,21 @@
                 <%--If the model has an attribute with the name `surveys`--%>
 
                 <c:when test="${not empty surveys}">
-                    <%--Create a table for the Postit Notes--%>
-                    <table class="notes">
-
+                    <table class="surveys">
+                        <tr>
+                            <td>
+                                <b>Survey</b>
+                            </td>
+                            <td>
+                                <b>Author</b>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <a href="/survey/${survey.getId()}">${survey.getName()}</a>
                             </td>
                                 <%--The String in the note attribute--%>
                             <td>${survey.getAuthor()}</td>
-                            <td>
-                                <a href="/result/">result</a>
-                            </td>
                         </tr>
 
                         <c:forEach var="survey" items="${surveys}">

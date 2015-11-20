@@ -7,11 +7,11 @@ body {
 }
 
 /*TABLE*/
-table.notes {
+table.surveys {
     border: 1px black solid;
 }
 
-.notes{
+.surveys{
     width: 100%;
 }
 
@@ -20,16 +20,16 @@ table.notes {
     border-radius: 10px;
 }
 
-.notes td {
+.surveys td {
     padding: 15px;
     text-align: left;
 }
 
-table.notes tr:nth-child(even) {
+table.surveys tr:nth-child(even) {
     background-color: #eee;
 }
 
-table.notes tr:nth-child(odd) {
+table.surveys tr:nth-child(odd) {
     background-color: white;
 }
 

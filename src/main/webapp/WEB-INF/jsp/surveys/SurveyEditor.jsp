@@ -44,7 +44,7 @@
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty survey.getQuestions()}">
-                <table class="notes">
+                <table class="surveys">
                     <c:forEach var="question" items="${questions}">
                         <tr>
                             <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>

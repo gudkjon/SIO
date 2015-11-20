@@ -32,7 +32,7 @@
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty question.getOptions()}">
                 <%--Create a table for the Postit Notes--%>
-                <table class="notes">
+                <table class="surveys">
                     <c:forEach var="option" items="${question.getOptions()}">
                         <td>
                             <p>${option.getOptionText()}</p>

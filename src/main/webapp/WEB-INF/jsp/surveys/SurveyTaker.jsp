@@ -21,7 +21,7 @@
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty survey.getQuestions()}">
                 <sf:form method="POST" commandName="results" action="/">
-                    <table class="notes">
+                    <table class="surveys">
                         <c:forEach var="question" items="${survey.getQuestions()}">
                             <tr>
                                 <td>
