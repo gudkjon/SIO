@@ -52,6 +52,10 @@ table.surveys tr:nth-child(odd) {
     margin: auto;
 }
 
-.blue-letters{
-    color: darkblue;
+.blue-font{
+     color: darkblue;
+}
+
+.gray-font{
+    color: #777;
 }

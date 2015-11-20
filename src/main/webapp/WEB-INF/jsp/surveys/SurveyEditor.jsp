@@ -10,60 +10,64 @@
     <title>Survey Editor</title>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
     <body>
-        <h1>${survey.getName()}</h1>
-        <p>by ${survey.getAuthor()}</p>
-        <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.getId()}">
-            <table>
-                <tr>
-                    <td> Question:</td>
-                        <%--the `path` attribute matches the `name` attribute of the Entity that was passed in the model--%>
-                    <td><sf:input path="questionText" type="text" placeholder="Question"/></td>
-                </tr>
-                <tr>
-                    <td>Type:</td>
-                        <%--the `path` attribute matches the `note` attribute of the Entity that was passed in the model--%>
-                    <td>
-                        <sf:select path="type">
+
+        <div class="form-container gray-background">
+            <h1 class="text-center blue-font">Edit Survey</h1>
+            <h3 class="text-center gray-font">${survey.getName()}</h3>
+            <h3 class="text-center gray-font">${survey.getAuthor()}</h3>
+
+            <div class="box">
+                <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.getId()}">
+
+                    <div class="form-group">
+                        <label for="questionId"> Question: </label>
+                        <sf:input id="questionId" cssClass="form-control" path="questionText" type="text" placeholder="Add question"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionType">Question type:</label>
+                        <sf:select id="questionType" cssClass="form-control" for="questionType" path="type">
                             <sf:option value="dropDown">DropDown</sf:option>
                             <sf:option value="multiQuestion">Multiple answer</sf:option>
                             <sf:option value="input">Input box</sf:option>
                             <sf:option value="radioButton">Radio Button</sf:option>
                         </sf:select>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" VALUE="Add Question"/>
+                    </div>
+                    <a href="/survey">No more Questions</a>
+                </sf:form>
+            </div>
+        </div>
 
-            <input type="submit" VALUE="Add Question!"/>
-            <a href="/survey">No more Questions</a>
-        </sf:form>
+        <div class="form-container">
+            <c:choose>
+                <%--If the model has an attribute with the name `surveys`--%>
+                <c:when test="${not empty survey.getQuestions()}">
+                    <table class="surveys">
+                        <c:forEach var="question" items="${questions}">
+                            <tr>
+                                <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
+                                <td>${question.type}</td>
+                                <td>
+                                    <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">
+                                        <input class="btn btn-default" type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:when>
 
-
-        <c:choose>
-            <%--If the model has an attribute with the name `surveys`--%>
-            <c:when test="${not empty survey.getQuestions()}">
-                <table class="surveys">
-                    <c:forEach var="question" items="${questions}">
-                        <tr>
-                            <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
-                            <td>${question.type}</td>
-                            <td>
-                                <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">
-                                    <input type="submit" value="Delete">
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:when>
-
-            <%--If all tests are false, then do this--%>
-            <c:otherwise>
-                <h3>No questions!</h3>
-            </c:otherwise>
-        </c:choose>
+                <%--If all tests are false, then do this--%>
+                <c:otherwise>
+                    <h3>No questions!</h3>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
     </body>
 </html>

@@ -19,7 +19,7 @@
     <body>
 
         <div class="form-container gray-background">
-            <h1 class="text-center blue-letters">Create a survey</h1>
+            <h1 class="text-center blue-font">Create a survey</h1>
 
             <div class="box">
                 <sf:form method="POST" cssClass="form-horizontal" role="form" commandName="survey" action="/survey">

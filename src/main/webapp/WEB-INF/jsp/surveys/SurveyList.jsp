@@ -9,7 +9,7 @@
     <head>
         <title>Survey Creator</title>
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>"/>
-        <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />--%>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
         <h1>Available Surveys</h1>
@@ -20,7 +20,6 @@
         <div>
             <c:choose>
                 <c:when test="${not empty surveys}">
-                    <%--Create a table for the Postit Notes--%>
                     <table class="surveys">
                         <c:forEach var="survey" items="${surveys}">
                             <tr>

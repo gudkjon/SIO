@@ -28,6 +28,7 @@
             <a href="/survey/${question.getSurvey().getId()}">Doneapalooza!</a>
         </sf:form>
 
+
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty question.getOptions()}">
@@ -55,3 +56,4 @@
 
     </body>
 </html>
+
