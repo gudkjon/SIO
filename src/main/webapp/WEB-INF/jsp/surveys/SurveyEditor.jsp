@@ -48,6 +48,17 @@
                 <%--If the model has an attribute with the name `surveys`--%>
                 <c:when test="${not empty survey.getQuestions()}">
                     <table class="surveys">
+                        <tr>
+                            <td>
+                                <b>Question</b>
+                            </td>
+                            <td>
+                                <b>Question type</b>
+                            </td>
+                            <td>
+                                <b>Delete</b>
+                            </td>
+                        </tr>
                         <c:forEach var="question" items="${questions}">
                             <tr>
                                 <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
