@@ -53,13 +53,6 @@
                                 <b>Author</b>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <a href="/survey/${survey.getId()}">${survey.getName()}</a>
-                            </td>
-                                <%--The String in the note attribute--%>
-                            <td>${survey.getAuthor()}</td>
-                        </tr>
 
                         <c:forEach var="survey" items="${surveys}">
                             <tr>
