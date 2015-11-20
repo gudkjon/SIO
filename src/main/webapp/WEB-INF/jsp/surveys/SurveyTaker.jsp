@@ -33,7 +33,7 @@
                                 <td>
                                     <c:choose>
                                         <%--Dropdown options--%>
-                                        <c:when test="${question.getType() == 'dropDown'}">
+                                        <c:when test="${question.getType() == 'dropdown'}">
                                             <select>
                                                 <option value="Select answer">${"Select answer"}</option>
                                                 <c:forEach var="option" items="${question.getOptions()}">
@@ -43,11 +43,12 @@
                                             </select>
                                         </c:when>
 
-                                        <%--radio button options--%>
-                                        <c:when test="${question.getType() == 'radioButton'}">
+                                        <%--Multiple answer question with radio buttons or checkbox --%>
+                                        <c:when test="${question.getType() == 'radio' || question.getType() == 'checkbox'}">
                                             <c:forEach var="option" items="${question.getOptions()}">
                                                 <label>
-                                                    <input type="radio" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
+                                                    <input type=${question.getType()} name="${question.getId()}" value="${option.getId()}" />
+                                                    ${option.getOptionText()}
                                                 </label>
                                                 <br>
                                             </c:forEach>
@@ -56,16 +57,6 @@
                                         <%--Input option--%>
                                         <c:when test="${question.getType() == 'input'}">
                                             <input placeholder="Enter answer" type="text" name="${option.getId()}" />
-                                        </c:when>
-
-                                        <%--Multiple question option--%>
-                                        <c:when test="${question.getType() == 'multiQuestion'}">
-                                            <c:forEach var="option" items="${question.getOptions()}">
-                                                <label>
-                                                    <input type="checkbox" name="${question.getId()}" value="${option.getId()}" />${option.getOptionText()}
-                                                </label>
-                                                <br>
-                                            </c:forEach>
                                         </c:when>
 
                                         <c:otherwise>

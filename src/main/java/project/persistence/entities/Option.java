@@ -27,6 +27,8 @@ public class Option {
     @JoinColumn(name = "resultId")
     private Result result;
 
+    private Boolean isCorrect;
+
     //private String[] options;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
@@ -50,13 +52,22 @@ public class Option {
         this.optionText = optionText;
     }
 
-    public Question getQuestion() { return question; }
+    public Question getQuestion() {
+        return question; }
 
     public void setQuestion(Question question) { this.question = question; }
 
     public Result getResult() { return result; }
 
     public void setResult(Result result) { this.result = result; }
+
+    public Boolean getIsCorrect() {
+        return isCorrect;
+    }
+
+    public void setIsCorrect(Boolean isCorrect) {
+           this.isCorrect = isCorrect;
+    }
 
     // This is for easier debug.
     @Override

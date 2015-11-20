@@ -29,10 +29,10 @@
                     <div class="form-group">
                         <label for="questionType">Question type:</label>
                         <sf:select id="questionType" cssClass="form-control" for="questionType" path="type">
-                            <sf:option value="dropDown">Drop down</sf:option>
-                            <sf:option value="multiQuestion">Multiple answer</sf:option>
+                            <sf:option value="dropdown">Drop down</sf:option>
+                            <sf:option value="checkbox">Multiple answer</sf:option>
                             <sf:option value="input">Input box</sf:option>
-                            <sf:option value="radioButton">Radio button</sf:option>
+                            <sf:option value="radio">Radio button</sf:option>
                         </sf:select>
                     </div>
                     <div class="form-group">

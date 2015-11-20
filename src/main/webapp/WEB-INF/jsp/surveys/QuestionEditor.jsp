@@ -15,14 +15,12 @@
     <body>
 
         <div class="form-container gray-background">
-
             <h1 class="text-center blue-font">Add options</h1>
             <h3 class="text-center gray-font">${question.getQuestionText()}</h3>
             <h3 class="text-center gray-font">${question.getType()}</h3>
 
             <div class="box">
                 <sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">
-
                     <div class="form-group">
                         <label for="optionId"> Option: </label>
                         <sf:input cssClass="form-control" id="optionId" path="optionText" type="text" placeholder="Add option"/>
@@ -37,9 +35,7 @@
 
         <div class="form-container">
             <c:choose>
-                <%--If the model has an attribute with the name `surveys`--%>
                 <c:when test="${not empty question.getOptions()}">
-                    <%--Create a table for the Postit Notes--%>
                     <table class="surveys">
                         <c:forEach var="option" items="${question.getOptions()}">
                             <td>

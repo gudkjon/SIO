@@ -23,7 +23,6 @@
 
             <div class="box">
                 <sf:form method="POST" cssClass="form-horizontal" role="form" commandName="survey" action="/survey">
-
                     <div class="form-group">
                         <label for="nameInput"> Name: </label>
                         <sf:input path="name" cssClass="form-control col-xs-*" id="nameInput" type="text" placeholder="Enter survey name"/>
@@ -39,10 +38,9 @@
                 </sf:form>
             </div>
         </div>
+
         <div class="form-container">
             <c:choose>
-                <%--If the model has an attribute with the name `surveys`--%>
-
                 <c:when test="${not empty surveys}">
                     <table class="surveys">
                         <tr>
@@ -57,7 +55,6 @@
                             <td>
                                 <a href="/survey/${survey.getId()}">${survey.getName()}</a>
                             </td>
-                                <%--The String in the note attribute--%>
                             <td>${survey.getAuthor()}</td>
                         </tr>
 
@@ -66,7 +63,6 @@
                                 <td>
                                     <a href="/survey/${survey.getId()}">${survey.getName()}</a>
                                 </td>
-                                <%--The String in the note attribute--%>
                                 <td>${survey.getAuthor()}</td>
                             </tr>
                         </c:forEach>
