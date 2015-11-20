@@ -15,7 +15,7 @@
     <body>
 
         <div class="form-container gray-background">
-            <h1 class="text-center blue-font">Edit Survey</h1>
+            <h1 class="text-center blue-font">Add Questions</h1>
             <h3 class="text-center gray-font">${survey.getName()}</h3>
             <h3 class="text-center gray-font">${survey.getAuthor()}</h3>
 
@@ -29,10 +29,10 @@
                     <div class="form-group">
                         <label for="questionType">Question type:</label>
                         <sf:select id="questionType" cssClass="form-control" for="questionType" path="type">
-                            <sf:option value="dropDown">DropDown</sf:option>
+                            <sf:option value="dropDown">Drop down</sf:option>
                             <sf:option value="multiQuestion">Multiple answer</sf:option>
                             <sf:option value="input">Input box</sf:option>
-                            <sf:option value="radioButton">Radio Button</sf:option>
+                            <sf:option value="radioButton">Radio button</sf:option>
                         </sf:select>
                     </div>
                     <div class="form-group">
