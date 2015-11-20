@@ -51,12 +51,6 @@
                                 <b>Author</b>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <a href="/survey/${survey.getId()}">${survey.getName()}</a>
-                            </td>
-                            <td>${survey.getAuthor()}</td>
-                        </tr>
 
                         <c:forEach var="survey" items="${surveys}">
                             <tr>

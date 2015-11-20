@@ -20,10 +20,7 @@ import project.service.ResultService;
 import project.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class SurveyTakingController {
@@ -57,8 +54,9 @@ public class SurveyTakingController {
 
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
     public String surveyViewGet(@PathVariable Long surveyId, Model model){
-
-        model.addAttribute("survey", surveyService.findOne(surveyId));
+        Survey survey = surveyService.findOne(surveyId);
+        model.addAttribute("questions", new HashSet<Question>(survey.getQuestions()));
+        model.addAttribute("survey", survey);
 
         // Return the view
         return "surveys/SurveyTaker";

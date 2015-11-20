@@ -19,10 +19,10 @@
 
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
-            <c:when test="${not empty survey.getQuestions()}">
+            <c:when test="${not empty questions}">
                 <sf:form method="POST" commandName="results" action="/">
                     <table class="surveys">
-                        <c:forEach var="question" items="${survey.getQuestions()}">
+                        <c:forEach var="question" items="${questions}">
                             <tr>
                                 <td>
                                     <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
