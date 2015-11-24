@@ -56,7 +56,17 @@ public class SurveyController {
     @RequestMapping(value = "/survey", method = RequestMethod.POST)
     public String surveyViewPost(@ModelAttribute("survey") Survey survey){
         surveyService.save(survey);
-        return "redirect:/survey/";
+        return "redirect:/survey/" +survey.getId();
+    }
+
+    @RequestMapping(value = "/optionType", method = RequestMethod.GET)
+    public String optionTypeChooser(){
+        return "surveys/optionType";
+    }
+
+    @RequestMapping(value = "/optionType", method = RequestMethod.POST)
+    public String optionTypeChooser2(){
+        return "surveys/optionType";
     }
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
@@ -79,7 +89,8 @@ public class SurveyController {
         survey.addQuestion(question);
         surveyService.save(survey);
 
-        return "redirect:/survey/"+surveyId;
+        return "redirect:/optionType";
+        //return "redirect:/survey/"+surveyId;
     }
 
     @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}", method = RequestMethod.POST)

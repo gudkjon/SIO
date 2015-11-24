@@ -34,7 +34,6 @@
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Create Survey"/>
                     </div>
-                    <a href="/result/">result</a>
                 </sf:form>
             </div>
         </div>
