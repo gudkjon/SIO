@@ -38,7 +38,8 @@
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Add Question"/>
                     </div>
-                    <a href="/survey">No more Questions</a>
+                    <a href="/survey">No more Questions</a><br>
+                    <a href="/result/">View results</a>
                 </sf:form>
             </div>
         </div>
