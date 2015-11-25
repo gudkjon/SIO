@@ -18,6 +18,9 @@
             <li>
                 <a href="/survey/take">Click here to take a survey</a>
             </li>
+            <li>
+                <a href="/results/view">Click here to view Results</a>
+            </li>
         </ul>
     </body>
     <footer>Class HBV501G, University of Iceland, Fall 2015</footer>

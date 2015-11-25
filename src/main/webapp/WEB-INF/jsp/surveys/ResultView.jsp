@@ -16,6 +16,44 @@
     <body>
         <h1>
             <b>Hi There!</b>
+            <c:choose>
+                <c:when test="${not empty questions}">
+                    <table class="surveys">
+                        <c:forEach var="question" items="${questions}" varStatus="questionCounter">
+                            <tr>
+                                <td>
+                                    <p>${question.getQuestionText()}</p>
+                                </td>
+                                <td>
+                                    <p>${totalAnswersPerQuestion.get(questioncounter.status)}</p>
+                                </td>
+                                <c:choose>
+                                    <c:when test="${not empty optionPercentages}">
+                                        <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
+                                            <td>
+                                                <p>${option.getOptionText()}:</p>
+                                                <c:forEach var="optionCount" items="${optionPercentages.get(optioncounter.status)}">
+                                                    <c:choose>
+                                                        <c:when test="${optionCount.getValue().equals(option.getOptionText())}">
+                                                            <p>${optionCount.getKey()}</p>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </td>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+
+                                    </c:otherwise>
+                                </c:choose>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>fuck off</p>
+                </c:otherwise>
+            </c:choose>
         </h1>
     </body>
 
