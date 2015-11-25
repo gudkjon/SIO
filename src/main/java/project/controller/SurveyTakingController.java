@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
-import project.persistence.entities.Survey;
-import project.persistence.entities.Question;
-import project.persistence.entities.Option;
+import project.persistence.entities.*;
 import project.service.StringManipulationService;
 import project.service.SurveyService;
 import project.service.QuestionService;
@@ -55,10 +53,32 @@ public class SurveyTakingController {
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
     public String surveyViewGet(@PathVariable Long surveyId, Model model){
         Survey survey = surveyService.findOne(surveyId);
-        model.addAttribute("questions", new HashSet<Question>(survey.getQuestions()));
+        ResultWrapper resultWrapper = new ResultWrapper();
+        ArrayList<Question> questions = new ArrayList<Question>(new LinkedHashSet<Question>(survey.getQuestions()));
+        for(int i = 0; i < questions.size(); i++) {
+            resultWrapper.getIdHolders().add(new IdHolder());
+            for(int j = 0; j < questions.get(i).getOptions().size(); j++ ) {
+                resultWrapper.getIdHolders().get(i).getOptionIds().add((long) 0);
+            }
+        }
+        //System.out.println(resultWrapper.getIdHolders().size());
+        //System.out.println(resultWrapper.getIdHolders().get(resultWrapper.getIdHolders().size() - 1).getOptionIds().size());
+
         model.addAttribute("survey", survey);
+        model.addAttribute("questions", questions);
+        model.addAttribute("ResultWrapper", resultWrapper);
 
         // Return the view
         return "surveys/SurveyTaker";
+    }
+
+    @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.POST)
+    public String surveySubmit(@PathVariable Long surveyId, @ModelAttribute("ResultWrapper") ResultWrapper resultWrapper) {
+        for(int i = 0; i < resultWrapper.getIdHolders().size(); i++) {
+            IdHolder currentIdHolder = resultWrapper.getIdHolders().get(i);
+            if (currentIdHolder.getText() == null) System.out.println(currentIdHolder.getOptionIds().get(0));
+            else System.out.println(currentIdHolder.getText());
+        }
+        return "redirect:/survey/take";
     }
 }
