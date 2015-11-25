@@ -2,6 +2,7 @@ package project.persistence.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The class for the Question itself.
@@ -40,6 +41,7 @@ public class Question {
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Question() {
+        this.results = new ArrayList<Result>();
     }
 
     public Question(String questionText, String type) {

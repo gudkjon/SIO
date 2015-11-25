@@ -20,9 +20,9 @@
         <c:choose>
             <%--If the model has an attribute with the name `surveys`--%>
             <c:when test="${not empty questions}">
-                <sf:form method="POST" commandName="results" action="/">
+                <sf:form method="POST" commandName="ResultWrapper" action="/survey/take/${survey.getId()}">
                     <table class="surveys">
-                        <c:forEach var="question" items="${questions}">
+                        <c:forEach var="question" items="${questions}" varStatus="questionCounter">
                             <tr>
                                 <td>
                                     <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
@@ -34,29 +34,34 @@
                                     <c:choose>
                                         <%--Dropdown options--%>
                                         <c:when test="${question.getType() == 'dropdown'}">
-                                            <select>
+                                            <sf:select path="idHolders[${questionCounter.index}].optionIds[0]">
                                                 <option value="Select answer">${"Select answer"}</option>
-                                                <c:forEach var="option" items="${question.getOptions()}">
+                                                <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
                                                     <p>${option.getId()}</p>
-                                                    <option value="${option.getId()}">${option.getOptionText()}</option>
+                                                    <sf:option value="${option.getId()}">${option.getOptionText()}</sf:option>
                                                 </c:forEach>
-                                            </select>
+                                            </sf:select>
                                         </c:when>
 
                                         <%--Multiple answer question with radio buttons or checkbox --%>
-                                        <c:when test="${question.getType() == 'radio' || question.getType() == 'checkbox'}">
-                                            <c:forEach var="option" items="${question.getOptions()}">
-                                                <label>
-                                                    <input type=${question.getType()} name="${question.getId()}" value="${option.getId()}" />
+                                        <c:when test="${question.getType() == 'checkbox'}">
+                                            <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
+                                                    <sf:checkbox path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value="${option.getId()}" />
                                                     ${option.getOptionText()}
-                                                </label>
                                                 <br>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:when test="${question.getType() == 'radio'}">
+                                            <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
+                                                <label>
+                                                    <sf:radiobutton path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value = "${option.getId()}"/>${option.getOptionText()}
+                                                </label>
                                             </c:forEach>
                                         </c:when>
 
                                         <%--Input option--%>
                                         <c:when test="${question.getType() == 'input'}">
-                                            <input placeholder="Enter answer" type="text" name="${option.getId()}" />
+                                            <sf:input path="idHolders[${questionCounter.index}].text" placeholder="Enter answer" type="text" name="${option.getId()}" />
                                         </c:when>
 
                                         <c:otherwise>

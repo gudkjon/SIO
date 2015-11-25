@@ -1,7 +1,7 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * The class for the Question itself.
@@ -28,7 +28,7 @@ public class Result {
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<Option> options;
+    private List<Option> selectedOptions;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
@@ -52,9 +52,9 @@ public class Result {
         this.question = question;
     }
 
-    public Set<Option> getOptions() { return options; }
+    public List<Option> getSelectedOptions() { return selectedOptions; }
 
-    public void setOptions(Set<Option> options) { this.options = options; }
+    public void setSelectedOptions(List<Option> selectedOptions) { this.selectedOptions = selectedOptions; }
 
     public Long getUserId() { return userId; }
 
