@@ -18,6 +18,7 @@ import project.service.ResultService;
 import project.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
@@ -52,6 +53,7 @@ public class SurveyTakingController {
 
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
     public String surveyViewGet(@PathVariable Long surveyId, Model model){
+        //System.out.println(resultService.findOne((long) 2).getSelectedOptions().get(0).getId());
         Survey survey = surveyService.findOne(surveyId);
         ResultWrapper resultWrapper = new ResultWrapper();
         ArrayList<Question> questions = new ArrayList<Question>(new LinkedHashSet<Question>(survey.getQuestions()));
@@ -75,10 +77,37 @@ public class SurveyTakingController {
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.POST)
     public String surveySubmit(@PathVariable Long surveyId, @ModelAttribute("ResultWrapper") ResultWrapper resultWrapper) {
         for(int i = 0; i < resultWrapper.getIdHolders().size(); i++) {
+            Result resultToSave = new Result();
             IdHolder currentIdHolder = resultWrapper.getIdHolders().get(i);
-            if (currentIdHolder.getText() == null) System.out.println(currentIdHolder.getOptionIds().get(0));
-            else System.out.println(currentIdHolder.getText());
+            if(currentIdHolder.getText() != null) {
+                resultToSave.setQuestion(questionService.findOne(currentIdHolder.getQuestionId()));
+                resultToSave.setText(currentIdHolder.getText());
+                //System.out.println(questionService.findOne(currentIdHolder.getQuestionId()).getQuestionText() + ": " + currentIdHolder.getText());
+                resultService.save(resultToSave);
+                continue;
+            }
+            ArrayList<Long> optionIds = currentIdHolder.getOptionIds();
+            ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
+            //ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
+
+            for(int j = 0; j < optionIds.size(); j++) {
+                if(optionIds.get(j) == null) continue;
+                //options.add(optionService.findOne(optionIds.get(j)));
+                Option option = optionService.findOne(optionIds.get(j));
+                SelectedOption selectedOption = new SelectedOption();
+                selectedOption.setSelectedOptionText(option.getOptionText());
+                selectedOption.setQuestionId(option.getQuestion().getId());
+                selectedOption.setResult(resultToSave);
+                selectedOptions.add(selectedOption);
+                //selectedOptions.add(new SelectedOption());
+                //selectedOptions.get(j).setResult(resultToSave);
+                //System.out.println(optionService.findOne(optionIds.get(j)).getOptionText());
+            }
+            resultToSave.setQuestion(questionService.findOne(selectedOptions.get(0).getQuestionId()));
+            resultToSave.setSelectedOptions(selectedOptions);
+            resultService.save(resultToSave);
         }
+
         return "redirect:/survey/take";
     }
 }

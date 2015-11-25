@@ -63,7 +63,7 @@ public class SurveyController {
 
     @RequestMapping(value = "/optionType", method = RequestMethod.POST)
     public String optionTypeChooser2(){
-        return "surveys/optionType";
+        return "redirect:/optionType";
     }
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
