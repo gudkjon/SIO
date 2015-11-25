@@ -1,6 +1,7 @@
 /*ELEMENTS*/
 body {
-    background-image: url("../images/background-blue.jpg");
+    /*background-image: url("../images/background-blue.jpg");*/
+    background-color: whitesmoke;
     background-size: cover;
     /*width: 100%;*/
     /*margin: auto;*/
