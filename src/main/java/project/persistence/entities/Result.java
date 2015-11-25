@@ -1,6 +1,7 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,13 +23,14 @@ public class Result {
     @JoinColumn(name = "questionId")
     private Question question;
 
+    private String text;
+
     private Long userId;
 
     @OneToMany(mappedBy = "result",
             fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Option> selectedOptions;
+            cascade = CascadeType.ALL)
+    private List<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
@@ -52,13 +54,27 @@ public class Result {
         this.question = question;
     }
 
-    public List<Option> getSelectedOptions() { return selectedOptions; }
+    public List<SelectedOption> getSelectedOptions() { return selectedOptions; }
 
-    public void setSelectedOptions(List<Option> selectedOptions) { this.selectedOptions = selectedOptions; }
+    public void setSelectedOptions(List<SelectedOption> selectedOptions) { this.selectedOptions = selectedOptions; }
+
+    public void addSelectedOption(SelectedOption selectedOption) {
+        if (!getSelectedOptions().contains(selectedOption)) {
+            getSelectedOptions().add(selectedOption);
+            if (selectedOption.getResult() != null) {
+                selectedOption.getResult().getSelectedOptions().remove(selectedOption);
+            }
+            selectedOption.setResult(this);
+        }
+    }
 
     public Long getUserId() { return userId; }
 
     public void setUserId(Long userId) { this.userId = userId; }
+
+    public String getText() { return text; }
+
+    public void setText(String text) { this.text = text; }
 
     // This is for easier debug.
     @Override

@@ -63,11 +63,11 @@
                                         <c:when test="${question.getType() == 'input'}">
                                             <sf:input path="idHolders[${questionCounter.index}].text" placeholder="Enter answer" type="text" name="${option.getId()}" />
                                         </c:when>
-
                                         <c:otherwise>
                                             <p> No options </p>
                                         </c:otherwise>
                                     </c:choose>
+                                    <sf:hidden path="idHolders[${questionCounter.index}].questionId" value="${question.getId()}"/>
                                 </td>
                             </tr>
                         </c:forEach>
