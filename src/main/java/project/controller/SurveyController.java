@@ -3,10 +3,7 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 import project.persistence.entities.Survey;
@@ -89,8 +86,8 @@ public class SurveyController {
         survey.addQuestion(question);
         surveyService.save(survey);
 
-        return "redirect:/optionType";
-        //return "redirect:/survey/"+surveyId;
+        //return "redirect:/optionType";
+        return "redirect:/survey/"+surveyId;
     }
 
     @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}/{questionId}", method = RequestMethod.POST)
@@ -134,4 +131,19 @@ public class SurveyController {
 
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
+
+    @RequestMapping(value = "/survey/surveyedit/predoptions/{surveyId}/{questionId}", method = RequestMethod.POST)
+    public String SurveyEditorPostChosenOptions(@PathVariable Long surveyId, @PathVariable Long questionId) {
+
+        //Question question = questionService.findOne(questionId);
+        //questionService.delete(question);
+       // System.out.println("im here");
+        //questionService.save(question);
+        //optionService.save(option);
+        return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
+    }
+
+
+
+
 }

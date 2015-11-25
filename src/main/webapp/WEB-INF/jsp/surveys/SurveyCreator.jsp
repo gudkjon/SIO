@@ -17,7 +17,6 @@
     </head>
 
     <body>
-
         <div class="form-container gray-background">
             <h1 class="text-center blue-font">Create a survey</h1>
 

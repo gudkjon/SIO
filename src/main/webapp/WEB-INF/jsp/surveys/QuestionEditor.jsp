@@ -17,7 +17,7 @@
         <div class="form-container gray-background">
             <h1 class="text-center blue-font">Add options</h1>
             <h3 class="text-center gray-font">${question.getQuestionText()}</h3>
-            <h3 class="text-center gray-font">${question.getType()}</h3>
+            <h5 class="text-center gray-font">Of type ${question.getType()}</h5>
 
             <div class="box">
                 <sf:form method="POST" commandName="option" action="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">
@@ -28,7 +28,22 @@
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Add Option"/>
                     </div>
-                    <a href="/survey/${question.getSurvey().getId()}">Doneapalooza mcsnoza!</a>
+                </sf:form>
+
+                <sf:form method="POST" commandName="option" action="/survey/surveyedit/predoptions/${question.getSurvey().getId()}/${question.getId()}">
+                    <div class="form-group">
+                        <sf:select path="optionText" cssClass="form-control" for="optionText" name="optionText" >
+                            <sf:option value="pred1">Yes or No</sf:option>
+                            <sf:option value="pred2">True or False</sf:option>
+                            <sf:option value="pred3">Easy, Medium, Hard</sf:option>
+                            <sf:option value="pred4">Very bad, Bad, Good, Very Good</sf:option>
+                            <sf:option value="pred5">I love you or I don't love you</sf:option>
+                        </sf:select>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" VALUE="Add chosen options"/>
+                    </div>
+                    <a href="/survey/${question.getSurvey().getId()}">Go back to question</a>
                 </sf:form>
             </div>
         </div>
@@ -37,6 +52,14 @@
             <c:choose>
                 <c:when test="${not empty question.getOptions()}">
                     <table class="surveys">
+                        <tr>
+                            <td>
+                                <b>Option:</b>
+                            </td>
+                            <td>
+                                <b>Delete option:</b>
+                            </td>
+                        </tr>
                         <c:forEach var="option" items="${question.getOptions()}">
                             <td>
                                 <p>${option.getOptionText()}</p>

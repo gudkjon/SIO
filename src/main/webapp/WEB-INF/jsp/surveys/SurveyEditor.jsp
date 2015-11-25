@@ -17,7 +17,7 @@
         <div class="form-container gray-background">
             <h1 class="text-center blue-font">Add Questions</h1>
             <h3 class="text-center gray-font">${survey.getName()}</h3>
-            <h3 class="text-center gray-font">${survey.getAuthor()}</h3>
+            <h5 class="text-center gray-font">By ${survey.getAuthor()}</h5>
 
             <div class="box">
                 <sf:form method="POST" commandName="question" action="/survey/surveyedit/${survey.getId()}">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="questionType">Question type:</label>
-                        <sf:select id="questionType" cssClass="form-control" for="questionType" path="type">
+                        <sf:select id="questionType" cssClass="form-control" for="questionType" path="type" >
                             <sf:option value="dropdown">Drop down</sf:option>
                             <sf:option value="checkbox">Multiple answer</sf:option>
                             <sf:option value="input">Input box</sf:option>
