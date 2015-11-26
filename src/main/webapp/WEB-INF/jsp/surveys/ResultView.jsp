@@ -19,6 +19,17 @@
             <c:choose>
                 <c:when test="${not empty questions}">
                     <table class="surveys">
+                        <tr>
+                            <td>
+                                Question:
+                            </td>
+                            <td>
+                                Total times answered:
+                            </td>
+                            <td>
+                                options:% times picked
+                            </td>
+                        </tr>
                         <c:forEach var="question" items="${questions}" varStatus="questionCounter">
                             <tr>
                                 <td>
