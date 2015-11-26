@@ -68,7 +68,7 @@ public class Option {
     public void setIsCorrect(Boolean isCorrect) {
            this.isCorrect = isCorrect;
     }
-    
+
     // This is for easier debug.
     @Override
     public String toString() {
