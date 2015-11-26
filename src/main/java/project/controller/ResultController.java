@@ -55,8 +55,8 @@ public class ResultController {
                     surveyService.findOne(surveyId).getQuestions()
                 )
         );
-        System.out.println(questions.get(0).getQuestionText());
-        System.out.println(surveyService.findOne(surveyId).getQuestions().get(0).getQuestionText());
+        //System.out.println(questions.get(0).getQuestionText());
+        //System.out.println(surveyService.findOne(surveyId).getQuestions().get(0).getQuestionText());
         ArrayList<ArrayList<Result>> results = new ArrayList<ArrayList<Result>>();
         for(int i = 0; i < questions.size(); i++) {
             results.add(new ArrayList(questions.get(i).getResults()));
@@ -66,10 +66,10 @@ public class ResultController {
         for(int i = 0; i < results.size(); i++) {
             ArrayList<Result> currentQuestionResults = results.get(i);
             totalAnswersPerQuestion.add((long)currentQuestionResults.size());
+            optionPercentages.add(new HashMap<String, Integer>());
             if(questions.get(i).getType().equals("input")) {
                 continue;
             }
-            optionPercentages.add(new HashMap<String, Integer>());
             for(int j = 0; j < currentQuestionResults.size(); j++) {
                 Result currentResult = currentQuestionResults.get(j);
                 ArrayList<SelectedOption> selectedOptionsInCurrentResult = new ArrayList<SelectedOption>(currentResult.getSelectedOptions());
