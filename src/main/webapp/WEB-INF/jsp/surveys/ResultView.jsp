@@ -8,12 +8,10 @@
 
     <head>
         <title>Viewing A Result</title>
-
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
-
         <h1 class="text-center">Survey results</h1>
         <p class="text-center">-- Under development --</p>
         <div class="form-container">
@@ -65,17 +63,16 @@
                                     </c:when>
                                     <c:otherwise>
 
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                    </c:when>
-                    <c:otherwise>
-                        <p>Nothing to display</p>
-                    </c:otherwise>
-                </c:choose>
-            </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>Nothing to display</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </body>
 </html>
