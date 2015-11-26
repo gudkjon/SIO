@@ -28,17 +28,24 @@
                                     <p>${totalAnswersPerQuestion.get(questioncounter.status)}</p>
                                 </td>
                                 <c:choose>
+                                    <c:when test="${question.getType() == 'input'}">
+                                        <p>question is text</p>
+                                    </c:when>
                                     <c:when test="${not empty optionPercentages}">
-                                        <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
+                                        <c:forEach var="option" items="${question.getOptions()}" varStatus="optioncounter">
                                             <td>
-                                                <p>${option.getOptionText()}:</p>
-                                                <c:forEach var="optionCount" items="${optionPercentages.get(optioncounter.status)}">
-                                                    <c:choose>
-                                                        <c:when test="${optionCount.getValue().equals(option.getOptionText())}">
-                                                            <p>${optionCount.getKey()}</p>
-                                                        </c:when>
-                                                    </c:choose>
+                                                <p>${option.getOptionText()}:
+                                                <c:forEach var="optionCounts" items="${optionPercentages}">
+                                                    <c:forEach var="optionCount" items="${optionCounts}">
+                                                        <c:choose>
+                                                            <c:when test="${optionCount.key == option.getOptionText()}">
+                                                                ${optionCount.value}
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </c:forEach>
                                                 </c:forEach>
+
+                                                </p>
                                             </td>
                                         </c:forEach>
                                     </c:when>
