@@ -29,7 +29,9 @@
                                 </td>
                                 <c:choose>
                                     <c:when test="${question.getType() == 'input'}">
+                                        <td>
                                         <p>question is text</p>
+                                        </td>
                                     </c:when>
                                     <c:when test="${not empty optionPercentages}">
                                         <c:forEach var="option" items="${question.getOptions()}" varStatus="optioncounter">
@@ -39,7 +41,7 @@
                                                     <c:forEach var="optionCount" items="${optionCounts}">
                                                         <c:choose>
                                                             <c:when test="${optionCount.key == option.getOptionText()}">
-                                                                ${optionCount.value}
+                                                                ${optionCount.value/totalAnswersPerQuestion.get(questionCounter.count)*100}%
                                                             </c:when>
                                                         </c:choose>
                                                     </c:forEach>
