@@ -13,43 +13,57 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     </head>
     <body>
+
         <h1 class="text-center">Survey results</h1>
         <p class="text-center">-- Under development --</p>
-            <div class="form-container">
-                <c:choose>
-                    <c:when test="${not empty questions}">
-                        <table class="surveys">
-                            <c:forEach var="question" items="${questions}" varStatus="questionCounter">
-                                <tr>
-                                    <td>
-                                        <p>${question.getQuestionText()}</p>
-                                    </td>
-                                    <td>
-                                        <p>${totalAnswersPerQuestion.get(questioncounter.status)}</p>
-                                    </td>
-                                    <c:choose>
-                                        <c:when test="${question.getType() == 'input'}">
-                                            <p>question is text</p>
-                                        </c:when>
-                                        <c:when test="${not empty optionPercentages}">
-                                            <c:forEach var="option" items="${question.getOptions()}" varStatus="optioncounter">
-                                                <td>
-                                                    <p>
-                                                        ${option.getOptionText()}:
-                                                        <c:forEach var="optionCounts" items="${optionPercentages}">
-                                                            <c:forEach var="optionCount" items="${optionCounts}">
-                                                                <c:choose>
-                                                                    <c:when test="${optionCount.key == option.getOptionText()}">
-                                                                        ${optionCount.value}
-                                                                    </c:when>
-                                                                </c:choose>
-                                                            </c:forEach>
-                                                        </c:forEach>
-                                                    </p>
-                                                </td>
-                                            </c:forEach>
-                                        </c:when>
-                                        <c:otherwise>
+        <div class="form-container">
+            <c:choose>
+                <c:when test="${not empty questions}">
+                    <table class="surveys">
+                        <tr>
+                            <td>
+                                Question:
+                            </td>
+                            <td>
+                                Total times answered:
+                            </td>
+                            <td>
+                                options:% times picked
+                            </td>
+                        </tr>
+                        <c:forEach var="question" items="${questions}" varStatus="questionCounter">
+                            <tr>
+                                <td>
+                                    <p>${question.getQuestionText()}</p>
+                                </td>
+                                <td>
+                                    <p>${totalAnswersPerQuestion.get(questioncounter.status)}</p>
+                                </td>
+                                <c:choose>
+                                    <c:when test="${question.getType() == 'input'}">
+                                        <td>
+                                        <p>question is text</p>
+                                        </td>
+                                    </c:when>
+                                    <c:when test="${not empty optionPercentages}">
+                                        <c:forEach var="option" items="${question.getOptions()}" varStatus="optioncounter">
+                                            <td>
+                                                <p>${option.getOptionText()}:
+                                                <c:forEach var="optionCounts" items="${optionPercentages}">
+                                                    <c:forEach var="optionCount" items="${optionCounts}">
+                                                        <c:choose>
+                                                            <c:when test="${optionCount.key == option.getOptionText()}">
+                                                                ${optionCount.value/totalAnswersPerQuestion.get(questionCounter.count)*100}%
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                </c:forEach>
+
+                                                </p>
+                                            </td>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
 
                                         </c:otherwise>
                                     </c:choose>
@@ -62,5 +76,6 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+        </div>
     </body>
 </html>
