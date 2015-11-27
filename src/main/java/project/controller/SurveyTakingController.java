@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.RequestContextUtils;
-import org.springframework.web.servlet.view.RedirectView;
 import project.persistence.entities.*;
 import project.service.StringManipulationService;
 import project.service.SurveyService;
@@ -17,8 +15,6 @@ import project.service.OptionService;
 import project.service.ResultService;
 import project.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
@@ -53,7 +49,6 @@ public class SurveyTakingController {
 
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
     public String surveyViewGet(@PathVariable Long surveyId, Model model){
-        //System.out.println(resultService.findOne((long) 2).getSelectedOptions().get(0).getId());
         Survey survey = surveyService.findOne(surveyId);
         ResultWrapper resultWrapper = new ResultWrapper();
         ArrayList<Question> questions = new ArrayList<Question>(new LinkedHashSet<Question>(survey.getQuestions()));
@@ -63,8 +58,6 @@ public class SurveyTakingController {
                 resultWrapper.getIdHolders().get(i).getOptionIds().add((long) 0);
             }
         }
-        //System.out.println(resultWrapper.getIdHolders().size());
-        //System.out.println(resultWrapper.getIdHolders().get(resultWrapper.getIdHolders().size() - 1).getOptionIds().size());
 
         model.addAttribute("survey", survey);
         model.addAttribute("questions", questions);
@@ -83,13 +76,11 @@ public class SurveyTakingController {
             if(currentIdHolder.getText() != null) {
                 resultToSave.setQuestion(questionService.findOne(currentIdHolder.getQuestionId()));
                 resultToSave.setText(currentIdHolder.getText());
-                //System.out.println(questionService.findOne(currentIdHolder.getQuestionId()).getQuestionText() + ": " + currentIdHolder.getText());
                 resultService.save(resultToSave);
                 continue;
             }
             ArrayList<Long> optionIds = currentIdHolder.getOptionIds();
             ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
-            //ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
 
             for(int j = 0; j < optionIds.size(); j++) {
                 if(optionIds.get(j) == null) continue;
@@ -101,19 +92,15 @@ public class SurveyTakingController {
                 selectedOption.setResult(resultToSave);
                 selectedOptions.add(selectedOption);
 
-
                 Long currentValue = question.getOptionCounts().get(option.getOptionText());
                 question.getOptionCounts().put(option.getOptionText(), currentValue + 1);
                 question.setTimesAnswered(question.getTimesAnswered()+1);
                 questionService.save(question);
-
-
             }
             resultToSave.setQuestion(questionService.findOne(selectedOptions.get(0).getQuestionId()));
             resultToSave.setSelectedOptions(selectedOptions);
             resultService.save(resultToSave);
         }
-
         return "redirect:/survey/take";
     }
 }

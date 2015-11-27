@@ -114,11 +114,9 @@ public class SurveyController {
     public String SurveyEditorPostOption(@PathVariable Long surveyId, @PathVariable Long questionId,
                                            @ModelAttribute("option") Option option) {
         Question question = questionService.findOne(questionId);
-        //questionService.delete(question);
         question.addOption(option);
         question.getOptionCounts().put(option.getOptionText(),(long)0);
         questionService.save(question);
-        //optionService.save(option);
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 

@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.RequestContextUtils;
-import org.springframework.web.servlet.view.RedirectView;
 import project.persistence.entities.*;
 import project.service.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.HashMap;
 
 @Controller
 public class ResultController {
@@ -55,8 +50,6 @@ public class ResultController {
                     surveyService.findOne(surveyId).getQuestions()
                 )
         );
-        //System.out.println(questions.get(0).getQuestionText());
-        //System.out.println(surveyService.findOne(surveyId).getQuestions().get(0).getQuestionText());
         ArrayList<ArrayList<Result>> results = new ArrayList<ArrayList<Result>>();
         for(int i = 0; i < questions.size(); i++) {
             results.add(new ArrayList(questions.get(i).getResults()));
@@ -69,23 +62,7 @@ public class ResultController {
         model.addAttribute("questions", questions);
         model.addAttribute("totalAnswersPerQuestion", totalAnswersPerQuestion);
         return "surveys/ResultView";
-        /*
-        HashMap<String, Integer> optionPercentages.get(i).get(j) = new HashMap<String, Integer>();
-
-        for (... record : records) {
-            String optionText = record.getCountryCode();
-            int curVal;
-            if (optionPercentages.get(i).get(j).containsKey(optionText)) {
-                curVal = optionPercentages.get(i).get(j).get(optionText);
-                optionPercentages.get(i).get(j).put(optionText, curVal + 1);
-            } else {
-                optionPercentages.get(i).get(j).put(optionText, 1);
-            }
-        }
-        */
     }
-
-    //"/result/view/${survey.getId()}"
 
     @RequestMapping(value = "/allResults", method = RequestMethod.GET)
     public String returnsAllResultsView(Model model){
