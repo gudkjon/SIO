@@ -116,6 +116,7 @@ public class SurveyController {
         Question question = questionService.findOne(questionId);
         //questionService.delete(question);
         question.addOption(option);
+        question.getOptionCounts().put(option.getOptionText(),(long)0);
         questionService.save(question);
         //optionService.save(option);
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;

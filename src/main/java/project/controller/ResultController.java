@@ -62,31 +62,11 @@ public class ResultController {
             results.add(new ArrayList(questions.get(i).getResults()));
         }
         ArrayList<Long> totalAnswersPerQuestion = new ArrayList<Long>();
-        ArrayList<HashMap<String, Integer>> optionPercentages = new ArrayList<HashMap<String, Integer>>();
         for(int i = 0; i < results.size(); i++) {
             ArrayList<Result> currentQuestionResults = results.get(i);
             totalAnswersPerQuestion.add((long)currentQuestionResults.size());
-            optionPercentages.add(new HashMap<String, Integer>());
-            if(questions.get(i).getType().equals("input")) {
-                continue;
-            }
-            for(int j = 0; j < currentQuestionResults.size(); j++) {
-                Result currentResult = currentQuestionResults.get(j);
-                ArrayList<SelectedOption> selectedOptionsInCurrentResult = new ArrayList<SelectedOption>(currentResult.getSelectedOptions());
-                for(int k = 0; k < selectedOptionsInCurrentResult.size(); k++) {
-                    String optionText = selectedOptionsInCurrentResult.get(k).getSelectedOptionText();
-                    int currentValue;
-                    if (optionPercentages.get(i).containsKey(optionText)) {
-                        currentValue = optionPercentages.get(i).get(optionText);
-                        optionPercentages.get(i).put(optionText, currentValue + 1);
-                    } else {
-                        optionPercentages.get(i).put(optionText, 1);
-                    }
-                }
-            }
         }
         model.addAttribute("questions", questions);
-        model.addAttribute("optionPercentages", optionPercentages);
         model.addAttribute("totalAnswersPerQuestion", totalAnswersPerQuestion);
         return "surveys/ResultView";
         /*

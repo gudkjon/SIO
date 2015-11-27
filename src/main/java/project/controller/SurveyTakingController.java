@@ -79,6 +79,7 @@ public class SurveyTakingController {
         for(int i = 0; i < resultWrapper.getIdHolders().size(); i++) {
             Result resultToSave = new Result();
             IdHolder currentIdHolder = resultWrapper.getIdHolders().get(i);
+            Question question = questionService.findOne(currentIdHolder.getQuestionId());
             if(currentIdHolder.getText() != null) {
                 resultToSave.setQuestion(questionService.findOne(currentIdHolder.getQuestionId()));
                 resultToSave.setText(currentIdHolder.getText());
@@ -92,16 +93,21 @@ public class SurveyTakingController {
 
             for(int j = 0; j < optionIds.size(); j++) {
                 if(optionIds.get(j) == null) continue;
-                //options.add(optionService.findOne(optionIds.get(j)));
+
                 Option option = optionService.findOne(optionIds.get(j));
                 SelectedOption selectedOption = new SelectedOption();
                 selectedOption.setSelectedOptionText(option.getOptionText());
                 selectedOption.setQuestionId(option.getQuestion().getId());
                 selectedOption.setResult(resultToSave);
                 selectedOptions.add(selectedOption);
-                //selectedOptions.add(new SelectedOption());
-                //selectedOptions.get(j).setResult(resultToSave);
-                //System.out.println(optionService.findOne(optionIds.get(j)).getOptionText());
+
+
+                Long currentValue = question.getOptionCounts().get(option.getOptionText());
+                question.getOptionCounts().put(option.getOptionText(), currentValue + 1);
+                question.setTimesAnswered(question.getTimesAnswered()+1);
+                questionService.save(question);
+
+
             }
             resultToSave.setQuestion(questionService.findOne(selectedOptions.get(0).getQuestionId()));
             resultToSave.setSelectedOptions(selectedOptions);
