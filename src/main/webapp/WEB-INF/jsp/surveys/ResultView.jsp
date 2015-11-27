@@ -45,17 +45,17 @@
                                         <p>question is text</p>
                                         </td>
                                     </c:when>
-                                <c:when test="${not empty question.getOptionCounts()}">
-                                    <c:forEach var="optionCount" items="${question.getOptionCounts()}">
-                                        <td>
-                                            ${optionCount.key}: ${optionCount.value/question.getTimesAnswered()*100}%
-                                        </td>
-                                    </c:forEach>
-                                </c:when>
-                                        <c:otherwise>
+                                    <c:when test="${not empty question.getOptionCounts()}">
+                                        <c:forEach var="optionCount" items="${question.getOptionCounts()}">
+                                            <td>
+                                                ${optionCount.key}: ${optionCount.value/question.getTimesAnswered()*100}%
+                                            </td>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
 
-                                        </c:otherwise>
-                                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tr>
                             </c:forEach>
                         </table>
