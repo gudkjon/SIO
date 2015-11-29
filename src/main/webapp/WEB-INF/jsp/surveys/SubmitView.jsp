@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
 <body>
-<p>${survey.getName()}</p>
-<p>${sumPickedWeight/survey.getTotalWeight()*100}%</p>
+<div class="container gray-background">
+    <h1 class="text-center blue-font">Results</h1>
+    <p class="text-center">${survey.getName()}</p>
+    <p class="text-center">You scored: ${sumPickedWeight/survey.getTotalWeight()*100}%</p>
+</div>
 </body>
 </html>
