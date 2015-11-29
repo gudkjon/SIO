@@ -25,7 +25,7 @@
                         <c:forEach var="question" items="${questions}" varStatus="questionCounter">
                             <tr>
                                 <td>
-                                    <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
+                                    <p>${question.getQuestionText()}<p>
                                 </td>
                                 <td>
                                     ${question.type}

@@ -42,7 +42,7 @@
                                 <c:choose>
                                     <c:when test="${question.getType() == 'input'}">
                                         <td>
-                                        <p>question is text</p>
+                                        <a href="/results/view/${question.getSurvey().getId()}/${question.getId()}">View responses</a>
                                         </td>
                                     </c:when>
                                     <c:when test="${not empty question.getOptionCounts()}">
