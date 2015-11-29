@@ -21,7 +21,8 @@ public class Survey {
     private String name;
     private String author;
     private String category;
-    private Boolean test;
+    private Boolean isTest;
+    private Double totalWeight = 0.0;
 
     @OneToMany(mappedBy = "survey",
             fetch = FetchType.EAGER,
@@ -68,9 +69,9 @@ public class Survey {
 
     public void setCategory(String category) { this.category = category; }
 
-    public Boolean getTest() { return test; }
+    public Boolean getIsTest() { return isTest; }
 
-    public void setTest(boolean test) { this.test = test; }
+    public void setIsTest(boolean isTest) { this.isTest = isTest; }
 
     public List<Question> getQuestions() { return questions; }
 
@@ -85,6 +86,10 @@ public class Survey {
             question.setSurvey(this);
         }
     }
+
+    public Double getTotalWeight() { return totalWeight; }
+
+    public void setTotalWeight( Double totalWeight ) { this.totalWeight = totalWeight; }
 
     // This is for easier debug.
     @Override

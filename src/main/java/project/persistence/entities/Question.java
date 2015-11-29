@@ -48,6 +48,8 @@ public class Question {
 
     private Long timesAnswered = (long)0;
 
+    private int weight = 1;
+
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
     public Question() {
@@ -121,6 +123,9 @@ public class Question {
 
     public void setTimesAnswered(Long timesAnswered) { this.timesAnswered = timesAnswered; }
 
+    public int getWeight() { return weight; }
+
+    public void setWeight(int weight) { this.weight = weight; }
     // This is for easier debug.
     @Override
     public String toString() {

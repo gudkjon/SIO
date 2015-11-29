@@ -31,6 +31,10 @@
                         <sf:input path="author" cssClass="form-control" id="authorInput" type="text" placeholder="Enter author name"/>
                     </div>
                     <div class="form-group">
+                        <label for="isTestCheckbox">Is a Test?:</label>
+                        <sf:checkbox path="isTest" id="isTestCheckbox"/>
+                    </div>
+                    <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Create Survey"/>
                     </div>
                 </sf:form>

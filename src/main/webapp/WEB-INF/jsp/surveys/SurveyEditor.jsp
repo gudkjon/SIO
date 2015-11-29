@@ -35,6 +35,12 @@
                             <sf:option value="radio">Radio button</sf:option>
                         </sf:select>
                     </div>
+                    <c:choose>
+                        <c:when test="${survey.getIsTest()}">
+                            <label for="weight">Question weight:</label>
+                            <sf:input id="weight" cssClass="form-control" path="weight" type="text" placeholder="enter weight"></sf:input>
+                        </c:when>
+                    </c:choose>
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Add Question"/>
                     </div>

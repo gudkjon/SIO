@@ -54,7 +54,7 @@
                                         <c:when test="${question.getType() == 'radio'}">
                                             <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
                                                 <label>
-                                                    <sf:radiobutton path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value = "${option.getId()}"/>${option.getOptionText()}
+                                                    <sf:radiobutton path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value = "${option.getId()}" />${option.getOptionText()}
                                                 </label>
                                             </c:forEach>
                                         </c:when>

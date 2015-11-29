@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.HashSet;
 
 @Controller
-public class SurveyController {
+public class SurveyEditingController {
 
     // Instance Variables
     SurveyService surveyService;
@@ -29,7 +29,7 @@ public class SurveyController {
 
     // Dependency Injection
     @Autowired
-    public SurveyController(SurveyService surveyService, QuestionService questionService, OptionService optionService) {
+    public SurveyEditingController(SurveyService surveyService, QuestionService questionService, OptionService optionService) {
         this.surveyService = surveyService;
         this.questionService = questionService;
         this.optionService = optionService;
@@ -84,6 +84,7 @@ public class SurveyController {
                                            Question question) {
         Survey survey = surveyService.findOne(surveyId);
         survey.addQuestion(question);
+        survey.setTotalWeight(survey.getTotalWeight()+question.getWeight());
         surveyService.save(survey);
 
         //return "redirect:/optionType";
@@ -94,6 +95,7 @@ public class SurveyController {
     public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long questionId){
         Question questionToDelete = questionService.findOne(questionId);
         Survey survey = surveyService.findOne(surveyId);
+        survey.setTotalWeight(survey.getTotalWeight()-questionToDelete.getWeight());
         survey.getQuestions().remove(questionToDelete);
         surveyService.save(survey);
 
