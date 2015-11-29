@@ -68,7 +68,16 @@
                         </tr>
                         <c:forEach var="question" items="${questions}">
                             <tr>
-                                <td><a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${question.getType() == 'input'}">
+                                            <p>${question.getQuestionText()}</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${question.type}</td>
                                 <td>
                                     <form method = post action = "/survey/surveyedit/delete/${question.getSurvey().getId()}/${question.getId()}">

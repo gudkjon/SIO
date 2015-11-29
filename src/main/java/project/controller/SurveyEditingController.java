@@ -67,16 +67,23 @@ public class SurveyEditingController {
     }
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
-    public String surveyGetAuthorFromName(@PathVariable Long surveyId,
+    public String surveyViewQuestions(@PathVariable Long surveyId,
                                              Model model) {
         Survey survey = surveyService.findOne(surveyId);
-        System.out.println(survey.getQuestions().size());
 
         model.addAttribute("survey", survey);
         model.addAttribute("questions", new HashSet<Question>(survey.getQuestions()));
         model.addAttribute("question", new Question());
 
         return "surveys/SurveyEditor";
+    }
+
+    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}", method = RequestMethod.POST)
+    public String SurveyEditorDeleteSurvey(@PathVariable Long surveyId){
+        Survey survey = surveyService.findOne(surveyId);
+        surveyService.delete(survey);
+
+        return "redirect:/survey";
     }
 
     @RequestMapping(value = "/survey/surveyedit/{surveyId}", method = RequestMethod.POST)

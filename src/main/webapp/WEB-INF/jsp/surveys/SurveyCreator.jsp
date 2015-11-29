@@ -60,6 +60,11 @@
                                     <a href="/survey/${survey.getId()}">${survey.getName()}</a>
                                 </td>
                                 <td>${survey.getAuthor()}</td>
+                                <td>
+                                    <form method = post action = "/survey/surveyedit/delete/${survey.getId()}">
+                                        <input class="btn btn-default" type="submit" value="Delete">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>
