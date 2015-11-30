@@ -57,13 +57,13 @@
                     <table class="surveys">
                         <tr>
                             <td>
-                                <b>Question</b>
+                                <b>Question:</b>
                             </td>
                             <td>
-                                <b>Question type</b>
+                                <b>Question type:</b>
                             </td>
                             <td>
-                                <b>Delete</b>
+                                <b>Delete:</b>
                             </td>
                         </tr>
                         <c:forEach var="question" items="${questions}">

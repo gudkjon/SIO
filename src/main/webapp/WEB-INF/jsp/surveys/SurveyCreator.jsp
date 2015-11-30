@@ -19,7 +19,6 @@
     <body>
         <div class="form-container gray-background">
             <h1 class="text-center blue-font">Create a survey</h1>
-
             <div class="box">
                 <sf:form method="POST" cssClass="form-horizontal" role="form" commandName="survey" action="/survey">
                     <div class="form-group">
@@ -47,10 +46,13 @@
                     <table class="surveys">
                         <tr>
                             <td>
-                                <b>Survey</b>
+                                <b>Survey:</b>
                             </td>
                             <td>
-                                <b>Author</b>
+                                <b>Author:</b>
+                            </td>
+                            <td>
+                                <b>Delete:</b>
                             </td>
                         </tr>
                         <c:forEach var="survey" items="${surveys}">
