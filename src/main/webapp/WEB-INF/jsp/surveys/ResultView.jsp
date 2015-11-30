@@ -13,7 +13,6 @@
     </head>
     <body>
         <h1 class="text-center">Survey results</h1>
-        <p class="text-center">-- Under development --</p>
         <div class="form-container">
             <c:choose>
                 <c:when test="${not empty questions}">

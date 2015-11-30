@@ -49,7 +49,6 @@
                                 <b>Author</b>
                             </td>
                         </tr>
-
                         <c:forEach var="survey" items="${surveys}">
                             <tr>
                                 <td>

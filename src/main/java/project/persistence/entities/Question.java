@@ -89,6 +89,33 @@ public class Question {
         }
     }
 
+    public void choosePredeterminedOptions(String optionText){
+        String[] options = new String[]{};
+
+        if (optionText.equals("pred1")){
+            options = new String[]{"Yes", "No"};
+        }
+        if (optionText.equals("pred2")){
+            options = new String[]{"True", "False"};
+        }
+        if (optionText.equals("pred3")){
+            options = new String[]{"Easy", "Medium", "Hard"};
+        }
+        if (optionText.equals("pred4")){
+            options = new String[]{"Bad", "Good", "Great"};
+        }
+        addPredeterminedOptions(options);
+    }
+
+    public void addPredeterminedOptions(String[] options){
+        for(int i = 0; i < options.length; i++){
+            Option option = new Option();
+            option.setOptionText(options[i]);
+            getOptions().add(option);
+            option.setQuestion(this);
+        }
+    }
+
     public List<Result> getResults() { return results; }
 
     public void setResults(List<Result> results) { this.results = results; }

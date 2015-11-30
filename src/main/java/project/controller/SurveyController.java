@@ -44,12 +44,6 @@ public class SurveyController {
         return "surveys/SurveyCreator";
     }
 
-    // Method that receives the POST request on the URL /postit
-    // and receives the ModelAttribute("survey")
-    // That attribute is the attribute that is mapped to the form, so here
-    // we can save the postit note because we get the data that was entered
-    // into the form.
-    // Notice the `method = RequestMethod.POST` part
     @RequestMapping(value = "/survey", method = RequestMethod.POST)
     public String surveyViewPost(@ModelAttribute("survey") Survey survey){
         surveyService.save(survey);
@@ -86,7 +80,6 @@ public class SurveyController {
         survey.addQuestion(question);
         surveyService.save(survey);
 
-        //return "redirect:/optionType";
         return "redirect:/survey/"+surveyId;
     }
 
@@ -133,17 +126,14 @@ public class SurveyController {
     }
 
     @RequestMapping(value = "/survey/surveyedit/predoptions/{surveyId}/{questionId}", method = RequestMethod.POST)
-    public String SurveyEditorPostChosenOptions(@PathVariable Long surveyId, @PathVariable Long questionId) {
+    public String SurveyEditorPostChosenOptions(@RequestParam String optionText,
+                                                @PathVariable Long surveyId, @PathVariable Long questionId) {
 
-        //Question question = questionService.findOne(questionId);
-        //questionService.delete(question);
-       // System.out.println("im here");
-        //questionService.save(question);
-        //optionService.save(option);
+        Question question = questionService.findOne(questionId);
+        question.choosePredeterminedOptions(optionText);
+        questionService.save(question);
+
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
-
-
-
 
 }

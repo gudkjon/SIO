@@ -36,8 +36,7 @@
                             <sf:option value="pred1">Yes or No</sf:option>
                             <sf:option value="pred2">True or False</sf:option>
                             <sf:option value="pred3">Easy, Medium, Hard</sf:option>
-                            <sf:option value="pred4">Very bad, Bad, Good, Very Good</sf:option>
-                            <sf:option value="pred5">I love you or I don't love you</sf:option>
+                            <sf:option value="pred4">Bad, Good, Great</sf:option>
                         </sf:select>
                     </div>
                     <div class="form-group">

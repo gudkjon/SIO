@@ -81,6 +81,5 @@
                 <h3>No questions!</h3>
             </c:otherwise>
         </c:choose>
-
     </body>
 </html>
