@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.RequestContextUtils;
-import org.springframework.web.servlet.view.RedirectView;
 import project.persistence.entities.*;
 import project.service.StringManipulationService;
 import project.service.SurveyService;
@@ -17,8 +15,6 @@ import project.service.OptionService;
 import project.service.ResultService;
 import project.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
@@ -45,26 +41,23 @@ public class SurveyTakingController {
 
 
     @RequestMapping(value = "/survey/take", method = RequestMethod.GET)
-    public String surveyViewGet(Model model){
+    public String surveyViewGet(Model model) {
         model.addAttribute("surveys", surveyService.findAllReverseOrder());
 
         return "surveys/SurveyList";
     }
 
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.GET)
-    public String surveyViewGet(@PathVariable Long surveyId, Model model){
-        //System.out.println(resultService.findOne((long) 2).getSelectedOptions().get(0).getId());
+    public String surveyViewGet(@PathVariable Long surveyId, Model model) {
         Survey survey = surveyService.findOne(surveyId);
         ResultWrapper resultWrapper = new ResultWrapper();
         ArrayList<Question> questions = new ArrayList<Question>(new LinkedHashSet<Question>(survey.getQuestions()));
-        for(int i = 0; i < questions.size(); i++) {
+        for (int i = 0; i < questions.size(); i++) {
             resultWrapper.getIdHolders().add(new IdHolder());
-            for(int j = 0; j < questions.get(i).getOptions().size(); j++ ) {
+            for (int j = 0; j < questions.get(i).getOptions().size(); j++) {
                 resultWrapper.getIdHolders().get(i).getOptionIds().add((long) 0);
             }
         }
-        //System.out.println(resultWrapper.getIdHolders().size());
-        //System.out.println(resultWrapper.getIdHolders().get(resultWrapper.getIdHolders().size() - 1).getOptionIds().size());
 
         model.addAttribute("survey", survey);
         model.addAttribute("questions", questions);
@@ -76,38 +69,50 @@ public class SurveyTakingController {
 
     @RequestMapping(value = "/survey/take/{surveyId}", method = RequestMethod.POST)
     public String surveySubmit(@PathVariable Long surveyId, @ModelAttribute("ResultWrapper") ResultWrapper resultWrapper) {
-        for(int i = 0; i < resultWrapper.getIdHolders().size(); i++) {
+        int sumPickedWeight = 0;
+        for (int i = 0; i < resultWrapper.getIdHolders().size(); i++) {
             Result resultToSave = new Result();
             IdHolder currentIdHolder = resultWrapper.getIdHolders().get(i);
-            if(currentIdHolder.getText() != null) {
-                resultToSave.setQuestion(questionService.findOne(currentIdHolder.getQuestionId()));
+            Question question = questionService.findOne(currentIdHolder.getQuestionId());
+            resultToSave.setQuestion(question);
+            if (currentIdHolder.getText() != null) {
                 resultToSave.setText(currentIdHolder.getText());
-                //System.out.println(questionService.findOne(currentIdHolder.getQuestionId()).getQuestionText() + ": " + currentIdHolder.getText());
                 resultService.save(resultToSave);
                 continue;
             }
             ArrayList<Long> optionIds = currentIdHolder.getOptionIds();
             ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
-            //ArrayList<SelectedOption> selectedOptions = new ArrayList<SelectedOption>();
 
-            for(int j = 0; j < optionIds.size(); j++) {
-                if(optionIds.get(j) == null) continue;
-                //options.add(optionService.findOne(optionIds.get(j)));
+            boolean answeredCorrect = true;
+            for (int j = 0; j < optionIds.size(); j++) {
+                if (optionIds.get(j) == null) continue;
+
                 Option option = optionService.findOne(optionIds.get(j));
+                answeredCorrect = option.getIsCorrect() && answeredCorrect;
+
                 SelectedOption selectedOption = new SelectedOption();
                 selectedOption.setSelectedOptionText(option.getOptionText());
                 selectedOption.setQuestionId(option.getQuestion().getId());
                 selectedOption.setResult(resultToSave);
                 selectedOptions.add(selectedOption);
-                //selectedOptions.add(new SelectedOption());
-                //selectedOptions.get(j).setResult(resultToSave);
-                //System.out.println(optionService.findOne(optionIds.get(j)).getOptionText());
+
+                Long currentValue = question.getOptionCounts().get(option.getOptionText());
+                question.getOptionCounts().put(option.getOptionText(), currentValue + 1);
+                question.setTimesAnswered(question.getTimesAnswered() + 1);
+                questionService.save(question);
             }
-            resultToSave.setQuestion(questionService.findOne(selectedOptions.get(0).getQuestionId()));
+            if (answeredCorrect) sumPickedWeight += question.getWeight();
+            //resultToSave.setQuestion(question);
             resultToSave.setSelectedOptions(selectedOptions);
             resultService.save(resultToSave);
         }
+        return "redirect:/survey/submitted/" + surveyId + "/" + sumPickedWeight;
+    }
 
-        return "redirect:/survey/take";
+    @RequestMapping(value = "/survey/submitted/{surveyId}/{sumPickedWeight}", method = RequestMethod.GET)
+    public String surveySubmitView(@PathVariable Long surveyId, @PathVariable int sumPickedWeight, Model model) {
+        model.addAttribute("survey",surveyService.findOne(surveyId));
+        model.addAttribute("sumPickedWeight", sumPickedWeight);
+        return "surveys/SubmitView";
     }
 }

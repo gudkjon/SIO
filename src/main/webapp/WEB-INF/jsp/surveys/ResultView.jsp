@@ -5,7 +5,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
 <html lang="en">
-
     <head>
         <title>Viewing A Result</title>
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/survey.css"/>" />
@@ -39,24 +38,13 @@
                                 <c:choose>
                                     <c:when test="${question.getType() == 'input'}">
                                         <td>
-                                        <p>question is text</p>
+                                        <a href="/results/view/${question.getSurvey().getId()}/${question.getId()}">View responses</a>
                                         </td>
                                     </c:when>
-                                    <c:when test="${not empty optionPercentages}">
-                                        <c:forEach var="option" items="${question.getOptions()}" varStatus="optioncounter">
+                                    <c:when test="${not empty question.getOptionCounts()}">
+                                        <c:forEach var="optionCount" items="${question.getOptionCounts()}">
                                             <td>
-                                                <p>${option.getOptionText()}:
-                                                <c:forEach var="optionCounts" items="${optionPercentages}">
-                                                    <c:forEach var="optionCount" items="${optionCounts}">
-                                                        <c:choose>
-                                                            <c:when test="${optionCount.key == option.getOptionText()}">
-                                                                ${optionCount.value/totalAnswersPerQuestion.get(questionCounter.count)*100}%
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </c:forEach>
-
-                                                </p>
+                                                ${optionCount.key}: ${optionCount.value/question.getTimesAnswered()*100}%
                                             </td>
                                         </c:forEach>
                                     </c:when>

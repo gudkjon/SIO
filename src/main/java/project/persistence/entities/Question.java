@@ -1,6 +1,8 @@
 package project.persistence.entities;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -35,8 +37,18 @@ public class Question {
             orphanRemoval = true)
     private List<Result> results;
 
+    @ElementCollection
+    @MapKeyColumn(name="optionText")
+    @Column(name="value")
+    @CollectionTable(name="question_counts", joinColumns=@JoinColumn(name="questionId"))
+    Map<String, Long> optionCounts = new HashMap<String, Long>();
+
     private String questionText;
     private String type;
+
+    private Long timesAnswered = (long)0;
+
+    private int weight = 1;
 
     // Notice the empty constructor, because we need to be able to create an empty Survey to add
     // to our model so we can use it with our form
@@ -89,6 +101,7 @@ public class Question {
         }
     }
 
+
     public void choosePredeterminedOptions(String optionText){
         String[] options = new String[]{};
 
@@ -116,6 +129,10 @@ public class Question {
         }
     }
 
+    public Map<String, Long> getOptionCounts() { return optionCounts; }
+
+    public void setOptionCounts(Map<String, Long> optionCounts) { this.optionCounts = optionCounts; }
+
     public List<Result> getResults() { return results; }
 
     public void setResults(List<Result> results) { this.results = results; }
@@ -130,6 +147,13 @@ public class Question {
         }
     }
 
+    public Long getTimesAnswered() { return timesAnswered; }
+
+    public void setTimesAnswered(Long timesAnswered) { this.timesAnswered = timesAnswered; }
+
+    public int getWeight() { return weight; }
+
+    public void setWeight(int weight) { this.weight = weight; }
     // This is for easier debug.
     @Override
     public String toString() {

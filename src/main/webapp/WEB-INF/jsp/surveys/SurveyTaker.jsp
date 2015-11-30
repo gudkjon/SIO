@@ -25,7 +25,7 @@
                         <c:forEach var="question" items="${questions}" varStatus="questionCounter">
                             <tr>
                                 <td>
-                                    <a href="/survey/surveyedit/${question.getSurvey().getId()}/${question.getId()}">${question.getQuestionText()}</a>
+                                    <p>${question.getQuestionText()}<p>
                                 </td>
                                 <td>
                                     ${question.type}
@@ -54,7 +54,7 @@
                                         <c:when test="${question.getType() == 'radio'}">
                                             <c:forEach var="option" items="${question.getOptions()}" varStatus="optionCounter">
                                                 <label>
-                                                    <sf:radiobutton path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value = "${option.getId()}"/>${option.getOptionText()}
+                                                    <sf:radiobutton path="idHolders[${questionCounter.index}].optionIds[${optionCounter.index}]" value = "${option.getId()}" />${option.getOptionText()}
                                                 </label>
                                             </c:forEach>
                                         </c:when>

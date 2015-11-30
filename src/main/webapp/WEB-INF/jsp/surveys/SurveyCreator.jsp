@@ -31,6 +31,10 @@
                         <sf:input path="author" cssClass="form-control" id="authorInput" type="text" placeholder="Enter author name"/>
                     </div>
                     <div class="form-group">
+                        <label for="isTestCheckbox">Is a Test?:</label>
+                        <sf:checkbox path="isTest" id="isTestCheckbox"/>
+                    </div>
+                    <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Create Survey"/>
                     </div>
                 </sf:form>
@@ -55,6 +59,11 @@
                                     <a href="/survey/${survey.getId()}">${survey.getName()}</a>
                                 </td>
                                 <td>${survey.getAuthor()}</td>
+                                <td>
+                                    <form method = post action = "/survey/surveyedit/delete/${survey.getId()}">
+                                        <input class="btn btn-default" type="submit" value="Delete">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>

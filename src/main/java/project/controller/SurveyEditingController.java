@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.HashSet;
 
 @Controller
-public class SurveyController {
+public class SurveyEditingController {
 
     // Instance Variables
     SurveyService surveyService;
@@ -29,7 +29,7 @@ public class SurveyController {
 
     // Dependency Injection
     @Autowired
-    public SurveyController(SurveyService surveyService, QuestionService questionService, OptionService optionService) {
+    public SurveyEditingController(SurveyService surveyService, QuestionService questionService, OptionService optionService) {
         this.surveyService = surveyService;
         this.questionService = questionService;
         this.optionService = optionService;
@@ -61,10 +61,9 @@ public class SurveyController {
     }
 
     @RequestMapping(value = "/survey/{surveyId}", method = RequestMethod.GET)
-    public String surveyGetAuthorFromName(@PathVariable Long surveyId,
+    public String surveyViewQuestions(@PathVariable Long surveyId,
                                              Model model) {
         Survey survey = surveyService.findOne(surveyId);
-        System.out.println(survey.getQuestions().size());
 
         model.addAttribute("survey", survey);
         model.addAttribute("questions", new HashSet<Question>(survey.getQuestions()));
@@ -73,11 +72,20 @@ public class SurveyController {
         return "surveys/SurveyEditor";
     }
 
+    @RequestMapping(value = "/survey/surveyedit/delete/{surveyId}", method = RequestMethod.POST)
+    public String SurveyEditorDeleteSurvey(@PathVariable Long surveyId){
+        Survey survey = surveyService.findOne(surveyId);
+        surveyService.delete(survey);
+
+        return "redirect:/survey";
+    }
+
     @RequestMapping(value = "/survey/surveyedit/{surveyId}", method = RequestMethod.POST)
     public String SurveyEditorPostQuestion(@PathVariable Long surveyId, @ModelAttribute("question")
                                            Question question) {
         Survey survey = surveyService.findOne(surveyId);
         survey.addQuestion(question);
+        survey.setTotalWeight(survey.getTotalWeight()+question.getWeight());
         surveyService.save(survey);
 
         return "redirect:/survey/"+surveyId;
@@ -87,6 +95,7 @@ public class SurveyController {
     public String SurveyEditorDeleteQuestion(@PathVariable Long surveyId, @PathVariable Long questionId){
         Question questionToDelete = questionService.findOne(questionId);
         Survey survey = surveyService.findOne(surveyId);
+        survey.setTotalWeight(survey.getTotalWeight()-questionToDelete.getWeight());
         survey.getQuestions().remove(questionToDelete);
         surveyService.save(survey);
 
@@ -107,10 +116,9 @@ public class SurveyController {
     public String SurveyEditorPostOption(@PathVariable Long surveyId, @PathVariable Long questionId,
                                            @ModelAttribute("option") Option option) {
         Question question = questionService.findOne(questionId);
-        //questionService.delete(question);
         question.addOption(option);
+        question.getOptionCounts().put(option.getOptionText(),(long)0);
         questionService.save(question);
-        //optionService.save(option);
         return "redirect:/survey/surveyedit/"+surveyId+"/"+questionId;
     }
 

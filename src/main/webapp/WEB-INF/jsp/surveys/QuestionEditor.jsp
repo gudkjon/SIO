@@ -26,6 +26,10 @@
                         <sf:input cssClass="form-control" id="optionId" path="optionText" type="text" placeholder="Add option"/>
                     </div>
                     <div class="form-group">
+                        <label for="isCorrect">Is option correct? </label>
+                        <sf:checkbox path="isCorrect" id="isCorrect"></sf:checkbox>
+                    </div>
+                    <div class="form-group">
                         <input class="btn btn-primary" type="submit" VALUE="Add Option"/>
                     </div>
                 </sf:form>
@@ -58,6 +62,13 @@
                             <td>
                                 <b>Delete option:</b>
                             </td>
+                            <c:choose>
+                                <c:when test="${question.getSurvey().getIsTest()}">
+                                    <td>
+                                        <b>Option is correct:</b>
+                                    </td>
+                                </c:when>
+                            </c:choose>
                         </tr>
                         <c:forEach var="option" items="${question.getOptions()}">
                             <td>
@@ -68,6 +79,23 @@
                                     <input class="btn btn-default" type="submit" value="Delete">
                                 </form>
                             </td>
+                            <c:choose>
+                                <c:when test="${question.getSurvey().getIsTest()}">
+                                    <td>
+                                        <p>
+                                        <c:choose>
+                                            <c:when test="${option.getIsCorrect()}">
+                                                Correct
+                                            </c:when>
+                                            <c:otherwise>
+                                                Incorrect
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </p>
+                                    </td>
+                                </c:when>
+                            </c:choose>
+
                             </tr>
                         </c:forEach>
                     </table>
